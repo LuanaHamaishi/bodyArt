@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Button } from "./inputs/Buttons";
 
 export default function Header({ btn1, btn2 }) {
   return (
@@ -11,6 +12,11 @@ export default function Header({ btn1, btn2 }) {
           {btn2}
         </button>
       </div>
+      <Button themeButton="primary">PARA EMPRESAS</Button>
+      <Button themeButton="secondary">PARA EMPRESAS</Button>
+      <Button themeButton="confirm">PARA EMPRESAS</Button>
+      <Button themeButton="cancel">PARA EMPRESAS</Button>
+      <Button> PARA EMPRESAS </Button>
     </StyledHeader>
   );
 }

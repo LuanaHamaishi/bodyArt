@@ -1,78 +1,97 @@
-import React from "react";
 import styled from "styled-components";
+import { color } from "../../assets/colors";
 
-export const Button = (props) => {
-  let theme;
-
-  const themes = [
-    {
-      name: "primary",
-      enabledBg: "blue",
-      enabledColor: "yellow",
-      disabledBg: "blue",
-      disabledColor: "yellow",
-      hoverBg: "blue",
-      hoverColor: "yellow",
-      activeBg: "blue",
-      activeColor: "yellow",
-    },
-    {
-      name: "secondary",
-      enabledBg: "black",
-      enabledColor: "red",
-      disabledBg: "black",
-      disabledColor: "red",
-      hoverBg: "black",
-      hoverColor: "red",
-      activeBg: "black",
-      activeColor: "red",
-    },
-    {
-      name: "confirm",
-      enabledBg: "green",
-      enabledColor: "white",
-      disabledBg: "green",
-      disabledColor: "white",
-      hoverBg: "green",
-      hoverColor: "white",
-      activeBg: "green",
-      activeColor: "white",
-    },
-    {
-      name: "cancel",
-      enabledBg: "red",
-      enabledColor: "white",
-      disabledBg: "red",
-      disabledColor: "white",
-      hoverBg: "red",
-      hoverColor: "white",
-      activeBg: "red",
-      activeColor: "white",
-    },
-  ];
-
-  function themeSelector() {
-    theme = themes.filter((theme) => theme.name === props.theme)[0];
-  }
-  themeSelector();
-
-  const ButtonArt = styled.button.attrs({ className: "btn" })`
-    :enabled {
-      background-color: ${theme.enabledBg ? theme.enabledBg : "black"};
-      color: ${theme.enabledColor ? theme.enabledColor : "white"};
-    }
-    :disabled {
-      background-color: ${theme.disabledBg ? theme.disabledBg : "black"};
-      color: ${theme.disabledColor ? theme.disabledColor : "white"};
-    }
-    :hover {
-      background-color: ${theme.hoverBg ? theme.hoverBg : "black"};
-      color: ${theme.hoverColor ? theme.hoverColor : "white"};
-    }
-    :active {
-      background-color: ${theme.activeBg ? theme.activeBg : "black"} !important;
-      color: ${theme.activeColor ? theme.activeColor : "white"} !important;
-    }
-  `;
-  return <ButtonArt>{props.children}</ButtonArt>;
+const themes = {
+  DEFAULT: {
+    // DEFAULT
+    name: "DEFAULT",
+    enabledBg: color.bluePrimary,
+    enabledColor: color.shineWhite,
+    disabledBg: color.bluePrimary,
+    disabledColor: color.shineWhite,
+    hoverBg: color.blueSecondary,
+    hoverColor: color.shineWhite,
+    activeBg: color.bluePrimary,
+    activeColor: color.shineWhite,
+  },
+  primary: {
+    // AZUL
+    name: "primary",
+    enabledBg: color.bluePrimary,
+    enabledColor: color.shineWhite,
+    disabledBg: color.bluePrimary,
+    disabledColor: color.shineWhite,
+    hoverBg: color.brownLight,
+    hoverColor: color.shineWhite,
+    activeBg: color.beigeDark,
+    activeColor: color.shineWhite,
+  },
+  secondary: {
+    // DOURADO
+    name: "secondary",
+    enabledBg: color.brownLight,
+    enabledColor: color.shineWhite,
+    disabledBg: color.brownLight,
+    disabledColor: color.shineWhite,
+    hoverBg: color.bluePrimary,
+    hoverColor: color.shineWhite,
+    activeBg: color.blueSecondary,
+    activeColor: color.shineWhite,
+  },
+  confirm: {
+    // CONFIRMAÇÕES / SALVAR
+    name: "confirm",
+    enabledBg: color.greenSaturated,
+    enabledColor: color.shineWhite,
+    disabledBg: color.greenSaturated,
+    disabledColor: color.shineWhite,
+    hoverBg: color.greenDesaturared,
+    hoverColor: color.shineWhite,
+    activeBg: color.greenSaturated,
+    activeColor: color.shineWhite,
+  },
+  cancel: {
+    // DESATIVAÇÕES / CANCELAR
+    name: "cancel",
+    enabledBg: color.redSaturated,
+    enabledColor: color.shineWhite,
+    disabledBg: color.redSaturated,
+    disabledColor: color.shineWhite,
+    hoverBg: color.redDesaturated,
+    hoverColor: color.shineWhite,
+    activeBg: color.redSaturated,
+    activeColor: color.shineWhite,
+  },
 };
+
+export const Button = styled.button.attrs({ className: "btn" })`
+  :enabled {
+    background-color: ${(props) =>
+      themes[props.themeButton ? props.themeButton : "DEFAULT"].enabledBg};
+    color: ${(props) =>
+      themes[props.themeButton ? props.themeButton : "DEFAULT"].enabledColor};
+  }
+  :disabled {
+    background-color: ${(props) =>
+      themes[props.themeButton ? props.themeButton : "DEFAULT"].disabledBg};
+    color: ${(props) =>
+      themes[props.themeButton ? props.themeButton : "DEFAULT"].disabledColor};
+  }
+  :hover {
+    background-color: ${(props) =>
+      themes[props.themeButton ? props.themeButton : "DEFAULT"].hoverBg};
+    color: ${(props) =>
+      themes[props.themeButton ? props.themeButton : "DEFAULT"].hoverColor};
+  }
+  :active {
+    background-color: ${(props) =>
+      themes[props.themeButton ? props.themeButton : "DEFAULT"]
+        .activeBg} !important;
+    color: ${(props) =>
+      themes[props.themeButton ? props.themeButton : "DEFAULT"]
+        .activeColor} !important;
+    border-color: ${(props) =>
+      themes[props.themeButton ? props.themeButton : "DEFAULT"]
+        .activeBg} !important;
+  }
+`;

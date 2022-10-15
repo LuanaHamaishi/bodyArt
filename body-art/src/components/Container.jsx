@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function Container() {
-  return <Conteudo></Conteudo>;
+export default function Container(props) {
+  return <Conteudo>{props.children}</Conteudo>;
 }
 
 const Conteudo = styled.div`
