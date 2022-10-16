@@ -1,10 +1,12 @@
 import React from "react";
 import Container from "../components/Container";
 import { SubTitle, Title, TitleBox } from "../components/Title";
+import Header from "../components/Header";
 
 export default function ParaEmpresa() {
   return (
     <>
+      <Header headerTransparent={true} />
       <Container>
         <TitleBox>
           <Title>Trabalhe com o que você ama</Title>
