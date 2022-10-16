@@ -11,4 +11,5 @@ export const color = {
   redDesaturated: "#ea3d3d",
   greenSaturated: "#00b600",
   greenDesaturared: "#12a412",
+  transparent: 'transparent'
 };

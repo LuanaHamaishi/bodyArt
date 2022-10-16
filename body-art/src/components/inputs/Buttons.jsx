@@ -62,6 +62,17 @@ const themes = {
     activeBg: color.redSaturated,
     activeColor: color.shineWhite,
   },
+  transparent: {
+    name: "transparent",
+    enabledBg: color.transparent,
+    enabledColor: color.bluePrimary,
+    disabledBg: color.transparent,
+    disabledColor: color.beigeDark,
+    hoverBg: color.transparent,
+    hoverColor: color.shineWhite,
+    activeBg: color.transparent,
+    activeColor: color.beigeDark,
+  },
 };
 
 export const Button = styled.button.attrs({ className: "btn" })`

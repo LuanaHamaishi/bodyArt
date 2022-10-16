@@ -6,17 +6,10 @@ export default function Header({ btn1, btn2 }) {
   return (
     <StyledHeader>
       <div style={{ marginLeft: "48px" }}>LOGO AQUI</div>
-      <div>
-        <button>{btn1}</button>
-        <button style={{ marginLeft: "40px", marginRight: "48px" }}>
-          {btn2}
-        </button>
+      <div style={{  marginRight: "48px" }}>
+      <Button themeButton="transparent" className="fw-semibold">SOBRE</Button>
+      <Button themeButton="primary" className="fw-semibold ml-5">PARA EMPRESAS</Button>
       </div>
-      <Button themeButton="primary">PARA EMPRESAS</Button>
-      <Button themeButton="secondary">PARA EMPRESAS</Button>
-      <Button themeButton="confirm">PARA EMPRESAS</Button>
-      <Button themeButton="cancel">PARA EMPRESAS</Button>
-      <Button> PARA EMPRESAS </Button>
     </StyledHeader>
   );
 }
