@@ -42,8 +42,8 @@ const ContainerButtons = styled.div`
 const LogoHeader = styled.div`
   margin-left: 48px;
   background-image: url(${imgLogo});
-  background-size: cover;
+  background-size: contain;
   border: none;
   width: 60px;
-  height: 60px;
+  height: 80px;
 `;

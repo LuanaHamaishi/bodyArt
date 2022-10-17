@@ -65,7 +65,7 @@ const themes = {
   transparent: {
     name: "transparent",
     enabledBg: color.transparent,
-    enabledColor: color.bluePrimary,
+    enabledColor: color.beigeEmphasis,
     disabledBg: color.transparent,
     disabledColor: color.beigeDark,
     hoverBg: color.transparent,

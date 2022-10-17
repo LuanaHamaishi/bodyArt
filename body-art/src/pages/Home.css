@@ -1,35 +1,35 @@
-
-.caroussel{
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 2em;
+.caroussel {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 2em;
 }
-.quadrado{
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    width: 360px;
-    height: 400px;
-    background-color: #a85555;
-    color: #f0f8ff;
-}
-
-.text{
-    background-color: gray;
-    height: 50px;
-    width: 100vw;
+.quadrado {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  border-radius: 5px;
+  width: 360px;
+  height: 400px;
+  background-color: #a85555;
+  color: #f0f8ff;
 }
 
-.card{
-    height: 600px;
-    width: 500px;
-    display: flex;
-    border: solid 2px #678C99;
-    background-color: transparent;
-    box-shadow: 2px #00000050;
+.text {
+  background-color: gray;
+  height: 50px;
+  width: 100vw;
 }
 
-.optCard{
-    display: flex;
-    justify-content: center;
+.card {
+  height: 600px;
+  width: 500px;
+  display: flex;
+  border: solid 2px #678c99;
+  background-color: transparent;
+  box-shadow: 2px #00000050;
+}
+
+.optCard {
+  display: flex;
+  justify-content: center;
 }
