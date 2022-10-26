@@ -30,7 +30,7 @@ export default function Corousel() {
 
 const ContentCorousel = (props) => {
   return (
-    <div style={{ display: "flex" }}>
+    <div>
       <ImgCorousel img={props.imgUrl}>
         {props.description ? (
           <Description>{props.description}</Description>
@@ -62,7 +62,7 @@ const ImgCorousel = styled.div.attrs({ className: `keen-slider__slide` })`
   color: #fff;
   font-weight: 500;
   height: 450px;
-  max-height: 100vh;
+  max-height: 100%;
   background-size: cover;
   background-image: url(${(props) => props.img});
 `;
