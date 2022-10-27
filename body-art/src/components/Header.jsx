@@ -9,14 +9,14 @@ export default function Header(props) {
       <LogoHeader />
       <ContainerButtons>
         <Button themeButton="transparent" className="fw-semibold">
-          SOBRE
+          {props.button1}
         </Button>
         <Button
           themeButton="primary"
           className="fw-semibold"
           style={{ marginRight: 10, marginLeft: 10 }}
         >
-          PARA EMPRESAS
+          {props.button2}
         </Button>
       </ContainerButtons>
     </StyledHeader>
