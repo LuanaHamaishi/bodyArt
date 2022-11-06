@@ -1,33 +1,43 @@
 import styled from "styled-components";
 
-export const Content = styled.div`
-  height: ${(props) =>
-    props.headerTransDisabled || props.contentSmaller ? "87.8vh" : "100vh"};
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+export const Content = ({
+  headerTransDisabled,
+  headerTransMarginAuto,
+  contentSmaller,
+  disabledTop,
+  disabledBottom,
+  disabledLeft,
+  disabledRight,
+  imgUrl,
+  ...props
+}) => {
+  const StyledContent = styled.div`
+    height: ${headerTransDisabled || contentSmaller ? "87.8vh" : "100vh"};
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 
-  // PADDING-Top
-  ${(props) =>
-    props.disabledTop
+    // PADDING-Top
+    ${disabledTop
       ? null
-      : `padding-top: ${
-          props.headerTransMarginAuto ? "96px" : "48px"
-        } !important;`}
+      : `padding-top: ${headerTransMarginAuto ? "96px" : "48px"} !important;`}
 
-  // PADDING-Bottom
-  ${(props) =>
-    props.disabledBottom ? null : `padding-bottom: 48px !important;`}
+    // PADDING-Bottom
+  ${disabledBottom ? null : `padding-bottom: 48px !important;`}
 
   // PADDING-Left
-  ${(props) => (props.disabledLeft ? null : `padding-left: 96px !important;`)}
+  ${disabledLeft ? null : `padding-left: 96px !important;`}
 
   // PADDING-Right
-  ${(props) => (props.disabledRight ? null : `padding-right: 96px !important;`)}
+  ${disabledRight ? null : `padding-right: 96px !important;`}
 
   // IMAGEM
-  ${(props) =>
-    props.imgUrl
-      ? `background-image: url(${props.imgUrl}); background-size: cover;`
-      : null}
-`;
+  ${imgUrl ? `background-image: url(${imgUrl}); background-size: cover;` : null}
+  `;
+
+  return (
+    <>
+      <StyledContent {...props}></StyledContent>
+    </>
+  );
+};
