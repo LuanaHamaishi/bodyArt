@@ -33,7 +33,11 @@ export const ModalSecondary = styled.div`
 export default function Home() {
   return (
     <div>
-      <Header headerTransparent={true} />
+      <Header
+        headerTransparent={true}
+        button1="SOBRE"
+        button2="PARA EMPRESAS"
+      />
 
       <Content
         headerTransMarginAuto={true}
