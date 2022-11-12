@@ -1,6 +1,6 @@
 import React from "react";
 import { styled } from "@stitches/react";
-import { violet } from "@radix-ui/colors";
+import { color } from "../../assets/colors";
 
 const InputLabel = ({
   name,
@@ -9,6 +9,10 @@ const InputLabel = ({
   noColum,
   labelAlign,
   placeholder,
+  width,
+  type,
+  onChange,
+  defaultValue,
   ...props
 }) => {
   const Fieldset = styled(
@@ -36,7 +40,7 @@ const InputLabel = ({
     noColum
       ? {
           fontSize: 15,
-          color: violet.violet11,
+          color: color.bluePrimary,
           width: 90,
           textAlign: `${labelAlign ? labelAlign : "right"}`,
         }
@@ -44,7 +48,7 @@ const InputLabel = ({
           fontSize: 13,
           lineHeight: 1,
           marginBottom: 10,
-          color: violet.violet12,
+          color: color.bluePrimary,
           display: "block",
         }
   );
@@ -63,23 +67,26 @@ const InputLabel = ({
           padding: "0 10px",
           fontSize: 15,
           lineHeight: 1,
-          color: violet.violet11,
-          boxShadow: `0 0 0 1px ${violet.violet7}`,
+          color: color.bluePrimary,
+          boxShadow: `0 0 0 1px ${color.blueSecondary}`,
           height: 35,
 
-          "&:focus": { boxShadow: `0 0 0 2px ${violet.violet8}` },
+          "&:focus": { boxShadow: `0 0 0 2px ${color.blueSecondary}` },
         }
       : {
           all: "unset",
           flex: "1 0 auto",
           borderRadius: 4,
           padding: "0 10px",
-          fontSize: 15,
+          fontSize: "1rem",
           lineHeight: 1,
-          color: violet.violet11,
-          boxShadow: `0 0 0 1px ${violet.violet7}`,
+          alignItems: "center",
+          justifyContent: "center",
+          color: color.bluePrimary,
+          boxShadow: `0 0 0 1px ${color.blueSecondary}`,
           height: 35,
-          "&:focus": { boxShadow: `0 0 0 2px ${violet.violet8}` },
+          width: width ? width : null,
+          "&:focus": { boxShadow: `0 0 0 2px ${color.blueSecondary}` },
         }
   );
 
@@ -87,9 +94,12 @@ const InputLabel = ({
     <Fieldset>
       <Label htmlFor={name}>{label}</Label>
       <Input
-        id={name} // MELHOR DEIXAR ID AO INVES DE NAME
-        defaultValue={value}
+        name={name} // MELHOR DEIXAR ID AO INVES DE NAME
+        value={value}
         placeholder={placeholder}
+        type={type}
+        onChange={onChange}
+        defaultValue={defaultValue}
         {...props}
       />
     </Fieldset>

@@ -8,9 +8,9 @@ export const color = {
   transparentWhite: "#FAFAFA90",
   grayDark: "#010101",
   blackOpacityFifty: "#00000050",
-  redSaturated: "#ff2828",
+  redSaturated: "#ff2828b3",
   redDesaturated: "#ea3d3d",
-  greenSaturated: "#00b600",
+  greenSaturated: "#00b600b3",
   greenDesaturared: "#12a412",
   transparent: "transparent",
 };

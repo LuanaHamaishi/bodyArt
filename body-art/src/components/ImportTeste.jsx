@@ -32,7 +32,7 @@ export default function FileUploadPage() {
   const verificationImage = () => {
     // TEM QUE FAZER TODAS AS VERIFICAÇOES DE CADA CAMPO DO ARQUIVO RECEBIDO, SE NÃO A APLICAÇÃO QUEBRA!
     try {
-      if (selectedFile.name == undefined) return;
+      if (selectedFile.name === undefined) return;
       return selectedFile.type === "image/png" ||
         selectedFile.type === "image/jpeg" ||
         selectedFile.type === "image/jpg"
@@ -44,11 +44,11 @@ export default function FileUploadPage() {
       return null;
     }
     // let type = selectedFile.type;
-    return selectedFile.type === "image/png" ||
-      selectedFile.type === "image/jpeg" ||
-      selectedFile.type === "image/jpg"
-      ? URL.createObjectURL(selectedFile)
-      : imageNotAvaliable;
+    // return selectedFile.type === "image/png" ||
+    //   selectedFile.type === "image/jpeg" ||
+    //   selectedFile.type === "image/jpg"
+    //   ? URL.createObjectURL(selectedFile)
+    //   : imageNotAvaliable;
   };
 
   return (
