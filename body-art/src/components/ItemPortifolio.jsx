@@ -4,25 +4,42 @@ import styled from "styled-components";
 import imgDefault from "../assets/images/imagem-default.png"
 import api from '../api';
 
-export default function ItemPortifolio() {
+export default function ItemPortifolio(props) {
+    const { selectable, handleSelect, handleClick } = props;
+    const img = imgDefault;
+
+    const handleImgClick = () => {
+        if (selectable) {
+            return;
+        }
+        handleClick()
+    }
+
     return (
         <Card>
-            <input type="checkbox" name="selection-image" id="" />
-            <CardImg src={imgDefault} alt="" />
+            <CardImg style={{backgroundImage: `url(${img})`}} onClick={handleImgClick} >
+                {selectable && <Input type="checkbox" name="selection-image" onChange={handleSelect} /> }
+            </CardImg>
         </Card>
     )
 }
 
 const Card = styled.div`
-    background-size: cover;
-    height: 371px;
-    width: 31.3%;
-    margin: 0 1%;   
-    display: flex;
-    margin-bottom: 30px;    
-    flex-wrap: wrap;
-    align-content: space-between;
+    height: 250px;
+    width: 250px;  
+    display: flex; 
 `
-const CardImg = styled.img`
-    position: relative;
+const CardImg = styled.div`
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    border-radius: 5px;
+`
+const Input = styled.input`
+    margin: 5px;
+    width: 27px;
+    height: 27px;
 `

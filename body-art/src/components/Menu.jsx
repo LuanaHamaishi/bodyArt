@@ -18,10 +18,8 @@ const StyledMenu = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  height: 12.2vh;
   width: 100%;
   background-color: #FFF1CF;
-  position: absolute;
 `;
 
 const LogoMenu = styled.div`
