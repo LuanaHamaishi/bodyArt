@@ -77,32 +77,29 @@ const themes = {
 
 export const Button = styled.button.attrs({ className: "btn" })`
   :enabled {
-    background-color: ${(props) =>
-      themes[props.themeButton ? props.themeButton : "DEFAULT"].enabledBg};
-    color: ${(props) =>
-      themes[props.themeButton ? props.themeButton : "DEFAULT"].enabledColor};
+    background-color: ${({ themeButton }) =>
+      themes[themeButton ? themeButton : "DEFAULT"].enabledBg};
+    color: ${({ themeButton }) =>
+      themes[themeButton ? themeButton : "DEFAULT"].enabledColor};
   }
   :disabled {
-    background-color: ${(props) =>
-      themes[props.themeButton ? props.themeButton : "DEFAULT"].disabledBg};
-    color: ${(props) =>
-      themes[props.themeButton ? props.themeButton : "DEFAULT"].disabledColor};
+    background-color: ${({ themeButton }) =>
+      themes[themeButton ? themeButton : "DEFAULT"].disabledBg};
+    color: ${({ themeButton }) =>
+      themes[themeButton ? themeButton : "DEFAULT"].disabledColor};
   }
   :hover {
-    background-color: ${(props) =>
-      themes[props.themeButton ? props.themeButton : "DEFAULT"].hoverBg};
-    color: ${(props) =>
-      themes[props.themeButton ? props.themeButton : "DEFAULT"].hoverColor};
+    background-color: ${({ themeButton }) =>
+      themes[themeButton ? themeButton : "DEFAULT"].hoverBg};
+    color: ${({ themeButton }) =>
+      themes[themeButton ? themeButton : "DEFAULT"].hoverColor};
   }
   :active {
-    background-color: ${(props) =>
-      themes[props.themeButton ? props.themeButton : "DEFAULT"]
-        .activeBg} !important;
-    color: ${(props) =>
-      themes[props.themeButton ? props.themeButton : "DEFAULT"]
-        .activeColor} !important;
-    border-color: ${(props) =>
-      themes[props.themeButton ? props.themeButton : "DEFAULT"]
-        .activeBg} !important;
+    background-color: ${({ themeButton }) =>
+      themes[themeButton ? themeButton : "DEFAULT"].activeBg} !important;
+    color: ${({ themeButton }) =>
+      themes[themeButton ? themeButton : "DEFAULT"].activeColor} !important;
+    border-color: ${({ themeButton }) =>
+      themes[themeButton ? themeButton : "DEFAULT"].activeBg} !important;
   }
 `;
