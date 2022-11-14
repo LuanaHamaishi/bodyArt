@@ -15,11 +15,7 @@ import Footer from "../components/Footer";
 export default function ParaEmpresa() {
   return (
     <>
-      <Header
-        headerTransparent={true}
-        button1="LOGIN"
-        button2="TESTE GRATUITAMENTE"
-      />
+
       <Content
         className="img-fluid"
         headerTransMarginAuto={true}

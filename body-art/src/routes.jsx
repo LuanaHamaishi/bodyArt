@@ -7,19 +7,57 @@ import ParaEmpresa from "./pages/ParaEmpresa";
 import Portifolio from "./pages/portifolio/Portifolio";
 import Test from "./pages/Test";
 import View from "./pages/portifolio/View";
+import Header from "./components/Header";
+import { color } from "./assets/colors";
+
+const PageRoute = ({
+  page,
+  headerTransparent,
+  backgroundColor,
+  logoDark,
+  homeEnabled,
+}) => {
+  return (
+    <>
+      <Header
+        role={sessionStorage.userRole}
+        headerTransparent={headerTransparent}
+        backgroundColor={backgroundColor}
+        logoDark={logoDark}
+        homeEnabled={homeEnabled}
+      />
+      {page}
+    </>
+  );
+};
 
 export default function Rotas() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/empresa" element={<ParaEmpresa />} />
-        <Route path="/inicio-cliente" element={<InitialClient />} />
-        <Route path="/profissionais/:categoria" element={<Professionals />} />
-        <Route path="/test" element={<Test />} />
+        <Route
+          path="/"
+          element={<PageRoute page={<Home />} headerTransparent homeEnabled />}
+        />
+        <Route path="/empresa" element={<PageRoute page={<ParaEmpresa />} />} />
+        <Route
+          path="/inicio-cliente"
+          element={
+            <PageRoute
+              page={<InitialClient />}
+              backgroundColor={color.beigeDark}
+              logoDark
+            />
+          }
+        />
+        <Route
+          path="/profissionais/:categoria"
+          element={<PageRoute page={<Professionals />} />}
+        />
         <Route path="/portifolio" element={<Portifolio />} />
         <Route path="/portifolio/view" element={<View />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="/test" element={<PageRoute page={<Test />} />} />
+        <Route path="*" element={<PageRoute page={<NotFound />} />} />
       </Routes>
     </Router>
   );

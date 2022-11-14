@@ -1,14 +1,13 @@
 import React from "react";
 import { Content } from "../components/Content";
-import Header from "../components/Header";
+
 import { Title } from "../components/Title";
-import { color } from "../assets/colors";
+
 import Cards from "../components/Cards";
 
 export default function InitialClient() {
   return (
     <div>
-      <Header style={{ backgroundColor: `${color.beigeDark}` }} />
       <div className="d-flex flex-column align-items-center mt-4">
         <Title>O que você está buscando hoje?</Title>
       </div>
