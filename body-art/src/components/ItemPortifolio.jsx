@@ -1,11 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import imgDefault from "../assets/images/imagem-default.png"
-
 export default function ItemPortifolio(props) {
-    const { selectable, handleSelect, handleClick } = props;
-    const img = imgDefault;
+    const { selectable, handleSelect, handleClick, img } = props;
 
     const handleImgClick = () => {
         if (selectable) {

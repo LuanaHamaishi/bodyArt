@@ -5,11 +5,13 @@ import { Button } from "../../components/inputs/Buttons";
 import { styled } from "@stitches/react";
 import { color } from "../../assets/colors";
 import useUserProfile from "../../hooks/useUserProfile";
+import { useNavigate } from "react-router-dom";
 
 import api from "../../api";
 
 export default function Add(props) {
 
+    const navigate = useNavigate();
     const userProfile = useUserProfile();
 
     const salvar = (event) => {
@@ -21,12 +23,11 @@ export default function Add(props) {
             descricao: event.target.description.value 
         }
         console.log(data);
-        
+
         api
         .post(`/portifolio/${userProfile.id}`, data)
         .then((resposta) => {
-          alert("Funcionou");
-          navigate("/portifolio");
+            props.handleClose();
         })
         .catch((error) => {
           alert("Deu erro");
@@ -41,7 +42,7 @@ export default function Add(props) {
                 <Label>
                     Imagem
                 </Label>
-                <Input id="image" defaultValue="https://cortesdecabelo.pro.br/wp-content/uploads/2019/07/bico-6.jpg" />
+                <Input id="image" defaultValue="http://url-da-imagem.com.br" />
             </Fieldset>
             <Fieldset>
                 <Label>
@@ -50,9 +51,7 @@ export default function Add(props) {
                 <TextArea id="description" defaultValue="ex. Tendência verão/outono 2023" />
             </Fieldset>
             <div style={{ display: 'flex', marginTop: 25, justifyContent: 'flex-end' }}>
-                <Dialog.Close asChild>
                     <Button type="submit">Salvar</Button>
-                </Dialog.Close>
             </div>
             </form>
             

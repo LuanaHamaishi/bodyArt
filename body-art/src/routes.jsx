@@ -55,7 +55,7 @@ export default function Rotas() {
           element={<PageRoute page={<Professionals />} />}
         />
         <Route path="/portifolio" element={<Portifolio />} />
-        <Route path="/portifolio/view" element={<View />} />
+        <Route path="/portifolio/view/:idProfissional/:idPortifolio" element={<View />} />
         <Route path="/test" element={<PageRoute page={<Test />} />} />
         <Route path="*" element={<PageRoute page={<NotFound />} />} />
       </Routes>

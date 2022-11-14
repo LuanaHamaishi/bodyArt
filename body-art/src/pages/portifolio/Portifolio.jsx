@@ -7,17 +7,34 @@ import { Button } from "../../components/inputs/Buttons";
 import ItemPortifolio from "../../components/ItemPortifolio";
 import { useNavigate } from "react-router-dom";
 import Add from "./Add";
+import { useEffect } from "react";
+import api from "../../api";
+import { TrashIcon, PlusIcon, Pencil2Icon } from '@radix-ui/react-icons';
 
 function Portifolio() {
 
     const navigate = useNavigate();
-
     const userProfile = useUserProfile();
 
-    const photos = [1, 2, 3, 4, 5, 6];
-
+    const [portifolio, setPortifolio] = useState([]);
     const [selectable, setSelectable] = useState(false);
     const [selected, setSelected] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [refresh, setRefresh] = useState(0);
+
+    useEffect(() => {
+        api
+            .get(`/portifolio/${userProfile.id}`)
+            .then((resposta) => {
+                setPortifolio(resposta.data)
+                if (resposta.status === 204) {
+                    setPortifolio([])
+                }
+            })
+            .catch((error) => {
+                alert("Deu erro");
+            });
+    }, [open, refresh])
 
     const handleSelectable = () => {
         setSelectable(!selectable);
@@ -33,17 +50,23 @@ function Portifolio() {
         })
     }
 
-    const handleSelectItem = (e, photo) => {
-        handleSelect(photo)
-        console.log("selected", photo)
+    const handleSelectItem = (e, idPortifolio) => {
+        handleSelect(idPortifolio)
+        console.log("selected", idPortifolio)
     }
 
-    const handleAdicionar = () => {
-        console.log("Adicionar");
-    }
+    async function deletar(handleSelectItem) {
 
-    const handleDelete = () => {
-        console.log("Deletar", selected)
+        for (const id of selected) {
+            await api
+                .delete(`/portifolio/${userProfile.id}/${id}`)
+                .catch((erro) => {
+                    alert("Erro ao deletar, procure ajuda");
+                });
+        }
+        setRefresh(r => r + 1);
+        setSelectable(false);
+        setSelected([]);
     }
 
     return (
@@ -57,37 +80,47 @@ function Portifolio() {
 
                     {(userProfile.type === "pro") &&
                         <>
-                            <Add textButton="Adicionar" />
+                            <Add
+                                trigger={<Button onClick={() => setOpen(true)}>
+                                    <div style={{display: "flex", justifyContent: "center"}}>
+                                        <span style={{marginRight: "10px"}}>Adicionar Foto</span>
+                                        <PlusIcon height={25} width={25} />
+                                    </div>
+                                    </Button>}
+                                portifolio={portifolio}
+                                open={open}
+                                handleClose={() => setOpen(false)} />
 
                             {(selected == false) &&
                                 <Button
                                     style={{ marginLeft: "16px" }}
                                     onClick={handleSelectable} >
-                                    Selecionar
+                                    <Pencil2Icon height={25} width={25} />
                                 </Button>}
 
-                            {(selected != false) &&
+                            {(selected != false) &&                 
                                 <Button
                                     style={{ marginLeft: "16px" }}
-                                    onClick={handleDelete} >
-                                    Excluir
+                                    onClick={deletar} >
+                                    <TrashIcon height={25} width={25} />
                                 </Button>
-                            }
-                        </>
+                    }
+                </>
                     }
 
-                </div>
-                <PhotosWrapper>
-                    {photos.map((photo, index) =>
-                        <ItemPortifolio
-                            key={index}
-                            selectable={selectable}
-                            handleClick={() => navigate("/portifolio/view")}
-                            handleSelect={e => handleSelectItem(e, photo)}
-                        />
-                    )}
-                </PhotosWrapper>
-            </Body>
+            </div>
+            <PhotosWrapper>
+                {portifolio?.map((photo) =>
+                    <ItemPortifolio
+                        key={photo.idPortifolio}
+                        selectable={selectable}
+                        img={photo.imagem}
+                        handleClick={() => navigate(`/portifolio/view/${photo.profissional.id}/${photo.idPortifolio}`)}
+                        handleSelect={e => handleSelectItem(e, photo.idPortifolio)}
+                    />
+                )}
+            </PhotosWrapper>
+        </Body>
         </>
     )
 }

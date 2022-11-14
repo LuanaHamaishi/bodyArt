@@ -4,30 +4,55 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { Button } from "../../components/inputs/Buttons";
 import { styled } from "@stitches/react";
 import { color } from "../../assets/colors";
+import { useNavigate } from "react-router-dom";
+import useUserProfile from "../../hooks/useUserProfile";
+import { useParams } from "react-router-dom";
+import api from "../../api";
 
 export default function Edit(props) {
 
+    const navigate = useNavigate();
+    const { idProfissional, idPortifolio } = useParams();
+
+    const salvar = (event) => {
+
+        event.preventDefault();
+
+        const data = {
+            imagem: event.target.image.value,
+            descricao: event.target.description.value 
+        }
+
+        api
+        .put(`/portifolio/${idProfissional}/${idPortifolio}`, data)
+        .then((resposta) => {
+            props.handleClose();
+        })
+        .catch((error) => {
+          alert("Deu erro");
+        });
+    }
 
     return <PopUp {...props}>
         <Body>
             <Dialog.Title>Editar portifólio</Dialog.Title>
-            <Fieldset>
-                <Label>
-                    Imagem
-                </Label>
-                <Input id="image" defaultValue="https://cortesdecabelo.pro.br/wp-content/uploads/2019/07/bico-6.jpg" />
-            </Fieldset>
-            <Fieldset>
-                <Label>
-                    Descrição
-                </Label>
-                <TextArea id="description" defaultValue="ex. Tendência verão/outono 2023" />
-            </Fieldset>
-            <div style={{ display: 'flex', marginTop: 25, justifyContent: 'flex-end' }}>
-                <Dialog.Close asChild>
-                    <Button>Salvar alterações</Button>
-                </Dialog.Close>
-            </div>
+            <form onSubmit={salvar}>
+                <Fieldset>
+                    <Label>
+                        Imagem
+                    </Label>
+                    <Input id="image" defaultValue={props.portifolio?.imagem} />
+                </Fieldset>
+                <Fieldset>
+                    <Label>
+                        Descrição
+                    </Label>
+                    <TextArea id="description" defaultValue={props.portifolio?.descricao} />
+                </Fieldset>
+                <div style={{ display: 'flex', marginTop: 25, justifyContent: 'flex-end' }}>
+                    <Button type="submit">Salvar alterações</Button>
+                </div>
+            </form>
         </Body>
     </PopUp>
 }
@@ -39,7 +64,7 @@ const Body = styled(
         width: "500px",
     }
 )
- 
+
 const Fieldset = styled(
     "fieldset",
     {

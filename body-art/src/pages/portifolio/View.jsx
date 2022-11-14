@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import Menu from "../../components/Menu";
@@ -6,15 +6,30 @@ import imgDefault from "../../assets/images/imagem-default.png"
 import { Button } from "../../components/inputs/Buttons";
 import { useNavigate } from "react-router-dom";
 import useUserProfile from "../../hooks/useUserProfile";
-import { HeartIcon, HeartFilledIcon } from '@radix-ui/react-icons';
+import { HeartIcon, HeartFilledIcon, Pencil2Icon, ResetIcon } from '@radix-ui/react-icons';
 import Edit from "./Edit";
+import { useParams } from "react-router-dom";
+import api from "../../api";
 
 export default function View() {
 
     const navigate = useNavigate();
     const userProfile = useUserProfile();
+    const { idProfissional, idPortifolio } = useParams();
 
-    const img = imgDefault;
+    const [portifolio, setPortifolio] = useState(null);
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        api
+        .get(`/portifolio/${idProfissional}/${idPortifolio}`)
+        .then((resposta) => {
+          setPortifolio(resposta.data)
+        })
+        .catch((error) => {
+          alert("Deu erro");
+        });
+    }, [open])
 
 
     function curtir() {
@@ -27,17 +42,21 @@ export default function View() {
                 <Menu />
             </Header>
             <Body>
-                <CardImg style={{ backgroundImage: `url(${img})` }}></CardImg>
+                <CardImg style={{ backgroundImage: `url(${portifolio ? portifolio?.imagem : imgDefault})` }}></CardImg>
                 <Container>
                     <CardAction>
                         {(userProfile.type === "pro") &&
-                            
-                            <Edit textButton="Editar"/>
-
+                            <Edit 
+                                trigger={<Button onClick={() => setOpen(true)}>
+                                        <Pencil2Icon height={25} width={25} />
+                                    </Button>} 
+                                portifolio={portifolio} 
+                                open={open} 
+                                handleClose={() => setOpen(false)}/>
                         }
                     </CardAction>
                     <CardDescription>
-                        Legenda
+                        {portifolio?.descricao}
                     </CardDescription>
                     <CardLikeAction>
                         <CardLike>
@@ -49,7 +68,7 @@ export default function View() {
                         <CardAction>
                             <Button
                                 onClick={() => navigate("/portifolio")}>
-                                Voltar
+                                <ResetIcon height={25} width={25} />
                             </Button>
                         </CardAction>
                     </CardLikeAction>
@@ -87,11 +106,10 @@ const CardDescription = styled.div`
     height: 180px;
     width: 680px; 
     background-color: #B8C7CC;
+    padding: 15px;
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
+    justify-content: flex-start;
     border-radius: 5px;
-    text-align: left;
     font-size: 20px;
     font-weight: 400;
     line-height: 1.5rem; 
