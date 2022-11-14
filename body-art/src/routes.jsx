@@ -4,7 +4,9 @@ import Home from "./pages/Home";
 import InitialClient from "./pages/InitialClient";
 import NotFound from "./pages/NotFound";
 import ParaEmpresa from "./pages/ParaEmpresa";
+import Portifolio from "./pages/portifolio/Portifolio";
 import Test from "./pages/Test";
+import View from "./pages/portifolio/View";
 import Header from "./components/Header";
 import { color } from "./assets/colors";
 
@@ -52,6 +54,8 @@ export default function Rotas() {
           path="/profissionais/:categoria"
           element={<PageRoute page={<Professionals />} />}
         />
+        <Route path="/portifolio" element={<Portifolio />} />
+        <Route path="/portifolio/view/:idProfissional/:idPortifolio" element={<View />} />
         <Route path="/test" element={<PageRoute page={<Test />} />} />
         <Route path="*" element={<PageRoute page={<NotFound />} />} />
       </Routes>

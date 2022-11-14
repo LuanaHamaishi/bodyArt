@@ -91,8 +91,8 @@ const DropClose = styled.div`
   background-color: white;
 `;
 
-const PopUp = ({ children, trigger, themeButton, textButton, dropClose }) => (
-  <Dialog>
+const PopUp = ({ open, children, trigger, themeButton, textButton, dropClose, handleClose }) => (
+  <Dialog open={open}>
     <DialogTrigger asChild>
       {/* O TEMA E NOME DO BOTÃO RECEBE VIA PROPS DE QUEM CHAMA O POPUP */}
 
@@ -113,7 +113,7 @@ const PopUp = ({ children, trigger, themeButton, textButton, dropClose }) => (
             </IconButton>
           </DropClose>
         ) : (
-          <IconButton aria-label="Close">
+          <IconButton aria-label="Close" onClick={handleClose ? handleClose : null}>
             <Cross2Icon />
           </IconButton>
         )}
