@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 import imgDefault from "../assets/images/imagem-default.png"
-import api from '../api';
 
 export default function ItemPortifolio(props) {
     const { selectable, handleSelect, handleClick } = props;
@@ -37,9 +36,11 @@ const CardImg = styled.div`
     align-items: flex-start;
     justify-content: flex-end;
     border-radius: 5px;
+    cursor: pointer;
 `
 const Input = styled.input`
     margin: 5px;
     width: 27px;
     height: 27px;
+    cursor: pointer;
 `

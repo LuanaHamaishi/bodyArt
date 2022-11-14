@@ -4,9 +4,9 @@ import Home from "./pages/Home";
 import InitialClient from "./pages/InitialClient";
 import NotFound from "./pages/NotFound";
 import ParaEmpresa from "./pages/ParaEmpresa";
-import Edit from "./pages/portifolio/Edit";
 import Portifolio from "./pages/portifolio/Portifolio";
 import Test from "./pages/Test";
+import View from "./pages/portifolio/View";
 
 export default function Rotas() {
   return (
@@ -18,7 +18,7 @@ export default function Rotas() {
         <Route path="/profissionais/:categoria" element={<Professionals />} />
         <Route path="/test" element={<Test />} />
         <Route path="/portifolio" element={<Portifolio />} />
-        <Route path="/portifolio/edit" element={<Edit />} />
+        <Route path="/portifolio/view" element={<View />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

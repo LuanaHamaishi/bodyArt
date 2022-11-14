@@ -6,6 +6,7 @@ import useUserProfile from "../../hooks/useUserProfile";
 import { Button } from "../../components/inputs/Buttons";
 import ItemPortifolio from "../../components/ItemPortifolio";
 import { useNavigate } from "react-router-dom";
+import Add from "./Add";
 
 function Portifolio() {
 
@@ -56,19 +57,19 @@ function Portifolio() {
 
                     {(userProfile.type === "pro") &&
                         <>
-                            <Button
-                                onClick={handleAdicionar}
-                                style={{ marginRight: "16px" }}>
-                                Adicionar
-                            </Button>
+                            <Add textButton="Adicionar" />
 
                             {(selected == false) &&
-                                <Button onClick={handleSelectable} >
+                                <Button
+                                    style={{ marginLeft: "16px" }}
+                                    onClick={handleSelectable} >
                                     Selecionar
                                 </Button>}
-                                
+
                             {(selected != false) &&
-                                <Button onClick={handleDelete} >
+                                <Button
+                                    style={{ marginLeft: "16px" }}
+                                    onClick={handleDelete} >
                                     Excluir
                                 </Button>
                             }
@@ -81,7 +82,7 @@ function Portifolio() {
                         <ItemPortifolio
                             key={index}
                             selectable={selectable}
-                            handleClick={() => navigate("/portifolio/edit")}
+                            handleClick={() => navigate("/portifolio/view")}
                             handleSelect={e => handleSelectItem(e, photo)}
                         />
                     )}

@@ -4,13 +4,39 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { Button } from "../../components/inputs/Buttons";
 import { styled } from "@stitches/react";
 import { color } from "../../assets/colors";
+import useUserProfile from "../../hooks/useUserProfile";
 
-export default function Edit(props) {
+import api from "../../api";
 
+export default function Add(props) {
+
+    const userProfile = useUserProfile();
+
+    const salvar = (event) => {
+
+        event.preventDefault();
+
+        const data = {
+            imagem: event.target.image.value,
+            descricao: event.target.description.value 
+        }
+        console.log(data);
+        
+        api
+        .post(`/portifolio/${userProfile.id}`, data)
+        .then((resposta) => {
+          alert("Funcionou");
+          navigate("/portifolio");
+        })
+        .catch((error) => {
+          alert("Deu erro");
+        });
+    }
 
     return <PopUp {...props}>
         <Body>
-            <Dialog.Title>Editar portifólio</Dialog.Title>
+            <Dialog.Title>Adicionar portifólio</Dialog.Title>
+            <form onSubmit={salvar}>
             <Fieldset>
                 <Label>
                     Imagem
@@ -25,9 +51,11 @@ export default function Edit(props) {
             </Fieldset>
             <div style={{ display: 'flex', marginTop: 25, justifyContent: 'flex-end' }}>
                 <Dialog.Close asChild>
-                    <Button>Salvar alterações</Button>
+                    <Button type="submit">Salvar</Button>
                 </Dialog.Close>
             </div>
+            </form>
+            
         </Body>
     </PopUp>
 }
