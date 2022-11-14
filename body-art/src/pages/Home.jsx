@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { Content } from "../components/Content";
-import Header from "../components/Header";
 import "./Home.css";
 import imgHome from "../assets/images/allef-vinicius-IvQeAVeJULw-unsplash.jpg";
 import Corousel from "../components/corousel/Corousel";
@@ -33,12 +32,6 @@ export const ModalSecondary = styled.div`
 export default function Home() {
   return (
     <div>
-      <Header
-        headerTransparent={true}
-        button1="SOBRE"
-        button2="PARA EMPRESAS"
-      />
-
       <Content
         headerTransMarginAuto={true}
         contentSmaller={true}

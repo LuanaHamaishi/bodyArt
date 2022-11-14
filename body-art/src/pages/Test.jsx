@@ -1,6 +1,5 @@
 import React from "react";
 import { SubTitle, Title, TitleBox } from "../components/Title";
-import Header from "../components/Header";
 import { Content } from "../components/Content";
 import PopUpRx from "../components/PopUpRx";
 import InputLabelRx from "../components/inputs/InputLabelRx";
@@ -16,7 +15,6 @@ import LoginRegistration from "../components/form/LoginRegistration";
 export default function ParaEmpresa() {
   return (
     <>
-      <Header headerTransparent={true} />
       <Content headerTransMarginAuto={true}>
         <div
           style={{ border: "solid 1px red", margin: "20px", padding: "10px" }}
