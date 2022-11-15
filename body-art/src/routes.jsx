@@ -8,6 +8,7 @@ import Portifolio from "./pages/portifolio/Portifolio";
 import Test from "./pages/Test";
 import View from "./pages/portifolio/View";
 import Header from "./components/Header";
+import TesteNotification from "./pages/TesteNotification";
 import { color } from "./assets/colors";
 
 const PageRoute = ({
@@ -57,6 +58,7 @@ export default function Rotas() {
         <Route path="/portifolio" element={<Portifolio />} />
         <Route path="/portifolio/view/:idProfissional/:idPortifolio" element={<View />} />
         <Route path="/test" element={<PageRoute page={<Test />} />} />
+        <Route path="/teste-notification" element={<TesteNotification />}/>
         <Route path="*" element={<PageRoute page={<NotFound />} />} />
       </Routes>
     </Router>
