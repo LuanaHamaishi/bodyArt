@@ -67,7 +67,6 @@ export default function Header({
   `;
 
   const ContainerButtons = styled.div`
-    gap: 1rem;
     margin-right: 2rem;
     display: flex;
   `;
@@ -83,6 +82,7 @@ export default function Header({
   `;
 
   const HeaderOption = styled.div`
+    gap: 1rem;
     display: flex;
     flex-direction: row-reverse;
   `;

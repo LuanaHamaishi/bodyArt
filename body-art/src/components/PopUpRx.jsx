@@ -45,10 +45,10 @@ const StyledContent = styledStitches(DialogPrimitive.Content, {
   "&:focus": { outline: "none" },
 });
 
-function Content({ children, ...props }) {
+function Content({ overlayClose, children, ...props }) {
   return (
     <DialogPrimitive.Portal>
-      <StyledOverlay />
+      <StyledOverlay onClick={overlayClose ? overlayClose : null} />
       <StyledContent {...props}>{children}</StyledContent>
     </DialogPrimitive.Portal>
   );
@@ -74,12 +74,12 @@ const IconButton = styledStitches("button", {
   right: 10,
 
   "&:hover": { backgroundColor: color.blueSecondary },
-  "&:focus": { boxShadow: `0 0 0 2px ${color.bluePrimary}` },
+  // "&:focus": { boxShadow: `0 0 0 2px ${color.bluePrimary}` },
 });
 
 const DropClose = styled.div`
   all: unset;
-  border-radius: 5px 5px 5px 5px;
+  border-radius: 5px;
   height: 45px;
   width: 45px;
   display: inline-flex;
@@ -91,7 +91,15 @@ const DropClose = styled.div`
   background-color: white;
 `;
 
-const PopUp = ({ open, children, trigger, themeButton, textButton, dropClose, handleClose }) => (
+const PopUp = ({
+  open,
+  children,
+  trigger,
+  themeButton,
+  textButton,
+  dropClose,
+  handleClose,
+}) => (
   <Dialog open={open}>
     <DialogTrigger asChild>
       {/* O TEMA E NOME DO BOTÃO RECEBE VIA PROPS DE QUEM CHAMA O POPUP */}
@@ -102,18 +110,21 @@ const PopUp = ({ open, children, trigger, themeButton, textButton, dropClose, ha
         <Button themeButton={themeButton}>{textButton}</Button>
       )}
     </DialogTrigger>
-    <DialogContent>
+    <DialogContent overlayClose={handleClose}>
       {/* O CHILDREN QUE ESTÁ VINDO É OS FORM'S */}
       {children}
       <DialogClose asChild>
         {dropClose ? (
-          <DropClose>
+          <DropClose onClick={handleClose ? handleClose : null}>
             <IconButton aria-label="Close">
               <Cross2Icon />
             </IconButton>
           </DropClose>
         ) : (
-          <IconButton aria-label="Close" onClick={handleClose ? handleClose : null}>
+          <IconButton
+            aria-label="Close"
+            onClick={handleClose ? handleClose : null}
+          >
             <Cross2Icon />
           </IconButton>
         )}

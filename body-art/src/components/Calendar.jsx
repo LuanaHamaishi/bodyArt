@@ -97,10 +97,10 @@ const App = () => {
         .forEach((element) => {
           element.style.height = "43px";
           element.style.width = "43px";
-          // element.style.maxHeight = "43px";
-          // element.style.maxWidth = "43px";
-          // element.style.background = "#0000FF60";
-          // element.style.borderRadius = "50%";
+          element.style.maxHeight = "43px";
+          element.style.maxWidth = "43px";
+          element.style.background = "#0000FF60";
+          element.style.borderRadius = "50%";
         });
     };
     smallCell();

@@ -1,79 +1,98 @@
 import React from "react";
-import { styled } from "@stitches/react";
-import { mauve } from "@radix-ui/colors";
-import * as TabsPrimitive from "@radix-ui/react-tabs";
+import { useEffect } from "react";
+import { useState } from "react";
+import styled from "styled-components";
+
 import { color } from "../assets/colors";
 
-export const Tabs = ({ width, children, pageDefault, ...props }) => {
-  const StyledTabs = styled(TabsPrimitive.Root, {
-    display: "flex",
-    flexDirection: "column",
-    width: `${width ? width : "300px"}`,
-    // boxShadow: `0 2px 10px ${blackA.blackA4}`,
-  });
+export const Tabs = ({ pageDefault, children, width, height }) => {
+  const [index, setIndex] = useState(pageDefault);
+  const [itemQtd, setItemQtd] = useState(
+    document.querySelectorAll(".class-tabs-item").length
+  );
+
+  useEffect(() => {
+    setItemQtd(document.querySelectorAll(".class-tabs-item").length);
+
+    document.querySelectorAll(".class-tabs-item").forEach((element, indice) => {
+      if (element.id != index) {
+        element.style.borderBottom = `0.5px solid ${color.blackOpacityTwenty}`;
+        element.style.color = "#949494";
+      }
+
+      element.onclick = function () {
+        setIndex(element.id);
+      };
+    });
+
+    document
+      .querySelectorAll(".class-tabs-content")
+      .forEach((element, indice) => {
+        // console.log(element.id);
+        // console.log("pageDef", pageDefault);
+        if (element.id != index) {
+          element.style.display = "none";
+        }
+      });
+  }, [index, itemQtd, document.querySelectorAll(".class-tabs-content")]);
+
+  const StyledTabs = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: ${width ? width : null};
+    height: ${height ? height : null};
+  `;
+
+  return <StyledTabs>{children}</StyledTabs>;
+};
+
+export const TabsList = ({ gap, children }) => {
+  const StyledTabsList = styled.div`
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    display: flex;
+    justify-content: space-around;
+    gap: ${gap ? gap : null};
+    flex-shrink: 0px;
+    background-color: white;
+    border-bottom: 0.5px solid ${color.blackOpacityFifty};
+  `;
+  return <StyledTabsList>{children}</StyledTabsList>;
+};
+
+export const TabsItem = ({ children, page }) => {
+  const StyledTabsItem = styled.div`
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-shrink: 0px;
+    padding: 10px 25px;
+    border-bottom: 2.5px solid ${color.bluePrimary};
+    color: ${color.bluePrimary};
+    margin-bottom: -1px;
+    user-select: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+  `;
   return (
-    <StyledTabs defaultValue={pageDefault} {...props}>
+    <StyledTabsItem id={page} className="class-tabs-item">
       {children}
-    </StyledTabs>
+    </StyledTabsItem>
   );
 };
 
-export const TabsList = ({ children, ...props }) => {
-  const StyledList = styled(TabsPrimitive.List, {
-    flexShrink: 0,
-    display: "flex",
-    borderBottom: `1px solid ${mauve.mauve6}`,
-  });
-  return <StyledList {...props}>{children}</StyledList>;
-};
-
-export const TabsTrigger = ({ page, children, ...props }) => {
-  const StyledTrigger = styled(TabsPrimitive.Trigger, {
-    all: "unset",
-    fontFamily: "inherit",
-    backgroundColor: "white",
-    padding: "0 20px",
-    height: 45,
-    flex: 1,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: 15,
-    lineHeight: 1,
-    color: color.blueSecondary,
-    userSelect: "none",
-    "&:first-child": { borderTopLeftRadius: 6 },
-    "&:last-child": { borderTopRightRadius: 6 },
-    "&:hover": { color: color.bluePrimary },
-    '&[data-state="active"]': {
-      color: color.bluePrimary,
-      boxShadow: "inset 0 -1px 0 0 currentColor, 0 1px 0 0 currentColor",
-    },
-    "&:focus": {
-      position: "relative",
-      // , boxShadow: `0 0 0 2px black`
-    },
-  });
+export const TabsContent = ({ children, page }) => {
+  const StyledTabsContent = styled.div`
+    padding: 20px;
+    background-color: white;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    outline: none;
+  `;
   return (
-    <StyledTrigger value={page} {...props}>
+    <StyledTabsContent id={page} className="class-tabs-content">
       {children}
-    </StyledTrigger>
-  );
-};
-
-export const TabsContent = ({ page, children, ...props }) => {
-  const StyledContent = styled(TabsPrimitive.Content, {
-    flexGrow: 1,
-    padding: 20,
-    backgroundColor: "white",
-    borderBottomLeftRadius: 6,
-    borderBottomRightRadius: 6,
-    outline: "none",
-    // "&:focus": { boxShadow: `0 0 0 2px black` },
-  });
-  return (
-    <StyledContent value={page} {...props}>
-      {children}
-    </StyledContent>
+    </StyledTabsContent>
   );
 };
