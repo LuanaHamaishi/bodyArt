@@ -1,4 +1,4 @@
-import notification from "../notification/Notification";
+import notification from "../components/services/Notification";
 
 function Teste(){
 

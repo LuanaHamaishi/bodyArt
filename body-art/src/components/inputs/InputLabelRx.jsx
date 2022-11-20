@@ -13,6 +13,7 @@ const InputLabel = ({
   type,
   onChange,
   defaultValue,
+  errorMessage,
   ...props
 }) => {
   const Fieldset = styled(
@@ -90,6 +91,15 @@ const InputLabel = ({
         }
   );
 
+  const Span = styled(
+    "span",
+    {
+      color: color.redSaturated,
+      fontSize: 12
+      
+    } 
+  )
+
   return (
     <Fieldset>
       <Label htmlFor={name}>{label}</Label>
@@ -102,6 +112,7 @@ const InputLabel = ({
         defaultValue={defaultValue}
         {...props}
       />
+      <Span>{errorMessage}</Span>
     </Fieldset>
   );
 };

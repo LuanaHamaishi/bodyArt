@@ -115,7 +115,7 @@ export default function ParaEmpresa() {
             padding: "10px",
           }}
         >
-          <LoginRegistration />
+          <LoginRegistration rota="profissionais"/>
         </div>
       </Content>
     </>
