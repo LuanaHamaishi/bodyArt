@@ -5,7 +5,7 @@ import { Button } from "../../components/inputs/Buttons";
 import { styled } from "@stitches/react";
 import { color } from "../../assets/colors";
 import { useNavigate } from "react-router-dom";
-import useUserProfile from "../../hooks/useUserProfile";
+import { getUserProfile } from "../../hooks/userProfile";
 import { useParams } from "react-router-dom";
 import api from "../../api";
 

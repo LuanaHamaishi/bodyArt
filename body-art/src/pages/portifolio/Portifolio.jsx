@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/Header";
-import useUserProfile from "../../hooks/useUserProfile";
+import { getUserProfile } from "../../hooks/userProfile";
 import { Button } from "../../components/inputs/Buttons";
 import ItemPortifolio from "../../components/ItemPortifolio";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,7 @@ import { TrashIcon, PlusIcon, Pencil2Icon, ResetIcon } from '@radix-ui/react-ico
 function Portifolio() {
 
     const navigate = useNavigate();
-    const userProfile = useUserProfile();
+    const userProfile = getUserProfile();
 
     const [portifolio, setPortifolio] = useState([]);
     const [selectable, setSelectable] = useState(false);
