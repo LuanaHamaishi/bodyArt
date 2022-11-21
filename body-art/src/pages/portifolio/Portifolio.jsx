@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import Menu from "../../components/Menu";
+import Header from "../../components/Header";
 import useUserProfile from "../../hooks/useUserProfile";
 import { Button } from "../../components/inputs/Buttons";
 import ItemPortifolio from "../../components/ItemPortifolio";
@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import Add from "./Add";
 import { useEffect } from "react";
 import api from "../../api";
-import { TrashIcon, PlusIcon, Pencil2Icon } from '@radix-ui/react-icons';
+import { TrashIcon, PlusIcon, Pencil2Icon, ResetIcon } from '@radix-ui/react-icons';
 
 function Portifolio() {
 
@@ -20,6 +20,7 @@ function Portifolio() {
     const [selectable, setSelectable] = useState(false);
     const [selected, setSelected] = useState([]);
     const [open, setOpen] = useState(false);
+    const [disabledReset, setDisabledReset ] = useState(true);
     const [refresh, setRefresh] = useState(0);
 
     useEffect(() => {
@@ -34,6 +35,20 @@ function Portifolio() {
             .catch((error) => {
                 alert("Deu erro");
             });
+
+        api
+            .get(`/portifolio/refazer/${userProfile.id}`)
+            .then((resposta) => {
+                if (resposta.status === 204) {
+                    setDisabledReset(true)
+                } else if (resposta.status === 200) {
+                    setDisabledReset(false)
+                }
+            })
+            .catch((erro) => {
+                alert("Erro ao refazer, procure ajuda");
+            });
+        
     }, [open, refresh])
 
     const handleSelectable = () => {
@@ -69,66 +84,88 @@ function Portifolio() {
         setSelected([]);
     }
 
+    async function refazer() {
+        await api
+            .patch(`/portifolio/${userProfile.id}`)
+            .catch((erro) => {
+                alert("Erro ao refazer, procure ajuda");
+            });
+        setRefresh(r => r + 1);
+    }
+
     return (
         <>
-            <Header>
-                <Menu />
-            </Header>
+            <Header />
             <Body>
 
                 <div style={{ margin: "32px 0" }}>
 
                     {(userProfile.type === "pro") &&
                         <>
-                            <Add
-                                trigger={<Button onClick={() => setOpen(true)}>
-                                    <div style={{display: "flex", justifyContent: "center"}}>
-                                        <span style={{marginRight: "10px"}}>Adicionar Foto</span>
-                                        <PlusIcon height={25} width={25} />
+                            <div style={{ display: "flex", 
+                            flexDirection: "row", 
+                            justifyContent: "space-between",
+                            padding: "0 32px",
+                            width: "100%" }}>
+                                <div style={{ flex: "1" }}></div>
+                                <div style={{ flex: "1" }}>
+                                    <Add
+                                        trigger={<Button onClick={() => setOpen(true)}>
+                                            <div style={{ display: "flex", justifyContent: "center" }}>
+                                                <span style={{ marginRight: "10px" }}>Adicionar Foto</span>
+                                                <PlusIcon height={25} width={25} />
+                                            </div>
+                                        </Button>}
+                                        portifolio={portifolio}
+                                        open={open}
+                                        handleClose={() => setOpen(false)} />
+
+                                    {(selected == false) &&
+                                        <Button
+                                            style={{ marginLeft: "16px" }}
+                                            onClick={handleSelectable} >
+                                            <Pencil2Icon height={25} width={25} />
+                                        </Button>}
+
+                                    {(selected != false) &&
+                                        <Button
+                                            style={{ marginLeft: "16px" }}
+                                            onClick={deletar} >
+                                            <TrashIcon height={25} width={25} />
+                                        </Button>}
+
+                                </div>
+                                <div style={{flex: "1", display: "flex", justifyContent: "flex-end"}}>
+                                <Button
+                                    onClick={refazer}
+                                    disabled={disabledReset} >
+                                    <div style={{ display: "flex", justifyContent: "center" }}>
+                                        <span style={{ marginRight: "10px" }}>Desfazer</span>
+                                        <ResetIcon height={25} width={25} />
                                     </div>
-                                    </Button>}
-                                portifolio={portifolio}
-                                open={open}
-                                handleClose={() => setOpen(false)} />
-
-                            {(selected == false) &&
-                                <Button
-                                    style={{ marginLeft: "16px" }}
-                                    onClick={handleSelectable} >
-                                    <Pencil2Icon height={25} width={25} />
-                                </Button>}
-
-                            {(selected != false) &&                 
-                                <Button
-                                    style={{ marginLeft: "16px" }}
-                                    onClick={deletar} >
-                                    <TrashIcon height={25} width={25} />
                                 </Button>
-                    }
-                </>
+                                </div>
+                            </div>
+                        </>
                     }
 
-            </div>
-            <PhotosWrapper>
-                {portifolio?.map((photo) =>
-                    <ItemPortifolio
-                        key={photo.idPortifolio}
-                        selectable={selectable}
-                        img={photo.imagem}
-                        handleClick={() => navigate(`/portifolio/view/${photo.profissional.id}/${photo.idPortifolio}`)}
-                        handleSelect={e => handleSelectItem(e, photo.idPortifolio)}
-                    />
-                )}
-            </PhotosWrapper>
-        </Body>
+                </div>
+                <PhotosWrapper>
+                    {portifolio?.map((photo) =>
+                        <ItemPortifolio
+                            key={photo.idPortifolio}
+                            selectable={selectable}
+                            img={photo.imagem}
+                            handleClick={() => navigate(`/portifolio/view/${photo.profissional.id}/${photo.idPortifolio}`)}
+                            handleSelect={e => handleSelectItem(e, photo.idPortifolio)}
+                        />
+                    )}
+                </PhotosWrapper>
+            </Body>
         </>
     )
 }
 
-const Header = styled.div`
-    width: 100%,
-    height: 150px;
-`
 const Body = styled.div`
     margin-left: auto;
     margin-right: auto;

@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useState } from "react";
-import Menu from "../../components/Menu";
+import Header from "../../components/Header";
 import imgDefault from "../../assets/images/imagem-default.png"
 import { Button } from "../../components/inputs/Buttons";
 import { useNavigate } from "react-router-dom";
 import useUserProfile from "../../hooks/useUserProfile";
-import { HeartIcon, HeartFilledIcon, Pencil2Icon, ResetIcon } from '@radix-ui/react-icons';
+import { HeartIcon, Pencil2Icon, ExitIcon } from '@radix-ui/react-icons';
 import Edit from "./Edit";
 import { useParams } from "react-router-dom";
 import api from "../../api";
@@ -38,9 +38,7 @@ export default function View() {
 
     return (
         <>
-            <Header>
-                <Menu />
-            </Header>
+            <Header />
             <Body>
                 <CardImg style={{ backgroundImage: `url(${portifolio ? portifolio?.imagem : imgDefault})` }}></CardImg>
                 <Container>
@@ -61,14 +59,14 @@ export default function View() {
                     <CardLikeAction>
                         <CardLike>
                             <HeartIcon onClick={() => curtir()} height={30} width={30} cursor={"pointer"} />
-                            <Likes>
+                            {/* <Likes>
                                 0
-                            </Likes>
+                            </Likes> */}
                         </CardLike>
                         <CardAction>
                             <Button
                                 onClick={() => navigate("/portifolio")}>
-                                <ResetIcon height={25} width={25} />
+                                <ExitIcon height={25} width={25} />
                             </Button>
                         </CardAction>
                     </CardLikeAction>
@@ -78,10 +76,6 @@ export default function View() {
     )
 }
 
-const Header = styled.div`
-    width: 100%,
-    height: 150px;
-`
 const Body = styled.div`
     padding-top: 100px;
     margin-left: auto;
