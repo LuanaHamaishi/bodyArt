@@ -4,7 +4,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { Button } from "../../components/inputs/Buttons";
 import { styled } from "@stitches/react";
 import { color } from "../../assets/colors";
-import useUserProfile from "../../hooks/useUserProfile";
+import { getUserProfile } from "../../hooks/userProfile";
 import { useNavigate } from "react-router-dom";
 
 import api from "../../api";
@@ -12,7 +12,7 @@ import api from "../../api";
 export default function Add(props) {
 
     const navigate = useNavigate();
-    const userProfile = useUserProfile();
+    const userProfile = getUserProfile();
 
     const salvar = (event) => {
 

@@ -5,7 +5,7 @@ import Header from "../../components/Header";
 import imgDefault from "../../assets/images/imagem-default.png"
 import { Button } from "../../components/inputs/Buttons";
 import { useNavigate } from "react-router-dom";
-import useUserProfile from "../../hooks/useUserProfile";
+import { getUserProfile } from "../../hooks/userProfile";
 import { HeartIcon, Pencil2Icon, ExitIcon } from '@radix-ui/react-icons';
 import Edit from "./Edit";
 import { useParams } from "react-router-dom";
@@ -14,7 +14,7 @@ import api from "../../api";
 export default function View() {
 
     const navigate = useNavigate();
-    const userProfile = useUserProfile();
+    const userProfile = getUserProfile();
     const { idProfissional, idPortifolio } = useParams();
 
     const [portifolio, setPortifolio] = useState(null);
