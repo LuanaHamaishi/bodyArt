@@ -41,3 +41,19 @@ export const Content = ({
     </>
   );
 };
+
+export const CardContent = ({ imgUrl, ...props }) => {
+  const StyledContent = styled.div`
+    display: inline-flexbox;
+    width: min-content;
+    ${imgUrl
+      ? `background-image: url(${imgUrl}); background-size: cover;`
+      : null}
+  `;
+
+  return (
+    <>
+      <StyledContent {...props}></StyledContent>
+    </>
+  );
+};

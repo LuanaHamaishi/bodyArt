@@ -1,34 +1,58 @@
-import React from "react";
-import { Content } from "../components/Content";
-
+import React, { useState } from "react";
 import { Title } from "../components/Title";
-
 import Cards from "../components/Cards";
+import { Content } from "../components/Content";
+import { useEffect } from "react";
+import axios from "axios";
+import { color } from "../assets/colors";
+import { Link } from "react-router-dom";
 
 export default function InitialClient() {
+  const [categorias, setCategorias] = useState([]);
+
+  useEffect(() => {
+    getCategorias();
+  }, []);
+
+  const getCategorias = () => {
+    axios
+      .get("https://63795bc67419b414df8dedcf.mockapi.io/api/categoria")
+      .then((res) => {
+        setCategorias(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
-    <div>
+    <Content contentSmaller={true}>
       <div className="d-flex flex-column align-items-center mt-4">
         <Title>O que você está buscando hoje?</Title>
       </div>
       <div className="d-flex mx-5 mt-4 justify-content-center">
-        <Cards
-          cardTitle="Cabelereiros"
-          cardDescription="Os melhores profissionais para cuidar do seu cabelo estão aqui"
-        />
-        <Cards
-          cardTitle="Manicure"
-          cardDescription="Para que você sempre tenha suas unhas sempre belas e perfeitas para qualquer situação"
-        />
-        <Cards
-          cardTitle="Barbearia"
-          cardDescription="Sua elegância e aparência sempre em dia com os melhores barbeiros da sua região"
-        />
-        <Cards
-          cardTitle="Maquiagem"
-          cardDescription="Não importa para qual ocasião você esteja se arrumando, uma maquiagem bem feita pode fazer você ser o destaque"
-        />
+        {categorias.map((cat) => (
+          <>
+            <Link
+              to={`/profissionais/${cat.nome}`}
+              style={{
+                textDecoration: "none",
+                color: `${color.darkBlue}`,
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Cards
+                key={cat.id}
+                imagem={cat.imagem}
+                btnCard="Ver Profissionais"
+                cardTitle={cat.nome}
+                cardDescription={cat.descricao}
+              />
+            </Link>
+          </>
+        ))}
       </div>
-    </div>
+    </Content>
   );
 }

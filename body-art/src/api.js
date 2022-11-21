@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080" // sua url do mockiapi
-})
+  baseURL: "https://63795bc67419b414df8dedcf.mockapi.io/api/profissionais", // sua url do mockiapi
+});
 
 export default api;

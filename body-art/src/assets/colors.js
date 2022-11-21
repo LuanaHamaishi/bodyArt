@@ -1,4 +1,7 @@
 export const color = {
+  blue: "#CFDBDF",
+  midBlue: "#9CC0CC",
+  darkBlue: "#325A68",
   bluePrimary: "#678C99",
   blueSecondary: "#B8C7CC",
   beigeEmphasis: "#FFF1CF",
@@ -8,7 +11,6 @@ export const color = {
   transparentWhite: "#FAFAFA90",
   grayDark: "#010101",
   blackOpacityFifty: "#00000050",
-  blackOpacityTwenty: "#00000020",
   redSaturated: "#ff2828b3",
   redDesaturated: "#ea3d3d",
   greenSaturated: "#00b600b3",

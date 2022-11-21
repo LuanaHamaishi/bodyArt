@@ -10,6 +10,7 @@ import View from "./pages/portifolio/View";
 import Header from "./components/Header";
 import TesteNotification from "./pages/TesteNotification";
 import { color } from "./assets/colors";
+import ProfessionalSelect from "./pages/ProfessionalSelect";
 
 const PageRoute = ({
   page,
@@ -53,12 +54,31 @@ export default function Rotas() {
         />
         <Route
           path="/profissionais/:categoria"
-          element={<PageRoute page={<Professionals />} />}
+          element={
+            <PageRoute
+              page={<ProfessionalSelect />}
+              backgroundColor={color.beigeDark}
+              logoDark
+            />
+          }
+        />
+        <Route
+          path="/profissional/:id/:nome"
+          element={
+            <PageRoute
+              page={<Professionals />}
+              backgroundColor={color.beigeDark}
+              logoDark
+            />
+          }
         />
         <Route path="/portifolio" element={<Portifolio />} />
-        <Route path="/portifolio/view/:idProfissional/:idPortifolio" element={<View />} />
+        <Route
+          path="/portifolio/view/:idProfissional/:idPortifolio"
+          element={<View />}
+        />
         <Route path="/test" element={<PageRoute page={<Test />} />} />
-        <Route path="/teste-notification" element={<TesteNotification />}/>
+        <Route path="/teste-notification" element={<TesteNotification />} />
         <Route path="*" element={<PageRoute page={<NotFound />} />} />
       </Routes>
     </Router>
