@@ -13,8 +13,9 @@ import InputLabel from "../inputs/InputLabel";
 import { Input, Option, Select, InputMask } from "../inputs/Inputs";
 import { maskCpf } from "./maskRegex";
 import { Tabs, TabsContent, TabsItem, TabsList } from "../TabsRx";
+import { toast } from "react-toastify";
 
-export default function LoginRegistration({buttonText = "Login/Cadastro"}) {
+export default function LoginRegistration({ buttonText, themeButton }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -36,11 +37,11 @@ export default function LoginRegistration({buttonText = "Login/Cadastro"}) {
   const [errorsMessage, setErrorsMessage] = useState({});
 
   function setProfile(data) {
-    return  {
-              id: data.id,
-              nome: data.nomeCliente,
-              userRole: "cliente",
-            }
+    return {
+      id: data.id,
+      nome: data.nomeCliente,
+      userRole: "cliente",
+    };
   }
 
   function Cadastrar() {
@@ -51,9 +52,11 @@ export default function LoginRegistration({buttonText = "Login/Cadastro"}) {
         .post(`/clientes`, data)
         .then((res) => {
           setUserProfile(setProfile(res.data));
+          toast.success("Cadastro concluído!");
           navigate("/inicio-cliente");
         })
         .catch((erro) => {
+          toast.warning("Cadastro inválido!");
           if (erro.response.status === 400) {
             console.log(erro);
 
@@ -64,7 +67,7 @@ export default function LoginRegistration({buttonText = "Login/Cadastro"}) {
 
     return (
       <>
-        <Title>Registro</Title>
+        <Title>Dados</Title>
         <Description>Faça seu registro</Description>
 
         <form id="form-registration" onSubmit={handleSubmit(onSubmit)}>
@@ -73,7 +76,7 @@ export default function LoginRegistration({buttonText = "Login/Cadastro"}) {
             input={
               <Input
                 name="nomeCliente"
-                placeholder="Maria José"
+                placeholder="Ex: Maria José"
                 type="text"
                 {...register("nomeCliente")}
               />
@@ -127,7 +130,7 @@ export default function LoginRegistration({buttonText = "Login/Cadastro"}) {
                 name="emailCliente"
                 type="email"
                 {...register("emailCliente")}
-                placeholder="example@example.com"
+                placeholder="Ex: email@example.com"
               />
             }
             errorLabel={errorsMessage?.emailCliente}
@@ -176,12 +179,14 @@ export default function LoginRegistration({buttonText = "Login/Cadastro"}) {
         .post(`/clientes/autenticar`, data)
         .then((res) => {
           setUserProfile(setProfile(res.data));
+          toast.success("Login efetuado!");
           navigate("/inicio-cliente");
         })
         .catch((erro) => {
           console.log(erro);
 
           setErrorsMessage(Validate(erro.response.data.errors));
+          toast.warning("Login inválido!");
         });
     };
 
@@ -196,7 +201,7 @@ export default function LoginRegistration({buttonText = "Login/Cadastro"}) {
               <Input
                 name="email"
                 type="email"
-                placeholder="email@example.com"
+                placeholder="Ex: email@example.com"
                 {...register("email")}
                 autoComplete="off"
                 autoFocus="off"
@@ -290,7 +295,10 @@ export default function LoginRegistration({buttonText = "Login/Cadastro"}) {
   return (
     <PopUp
       trigger={
-        <Button onClick={() => setIsOpen(true)} themeButton="primary">
+        <Button
+          onClick={() => setIsOpen(true)}
+          themeButton={themeButton ? themeButton : "primary"}
+        >
           {buttonText}
         </Button>
       }

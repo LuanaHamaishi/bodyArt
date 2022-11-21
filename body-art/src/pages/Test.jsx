@@ -11,8 +11,9 @@ import FileUploadPage from "../components/ImportTeste";
 // import App from "../components/Calendar";
 import LoginRegistration from "../components/form/LoginRegistration";
 import { Tabs, TabsContent, TabsItem, TabsList } from "../components/TabsRx";
-import ToastDemo from "../components/ToastRx";
+import ToastDemo from "../components/descontinuado/ToastRx";
 import { Option, SelectLabel } from "../components/descontinuado/SelectLabel";
+import LoginRegistrationProfissional from "../components/form/LoginRegistrationProfissional";
 // import AppTwo from "../components/CalendarComInfo.jsx";
 
 export default function ParaEmpresa() {
@@ -162,7 +163,19 @@ export default function ParaEmpresa() {
             height: "700px",
           }}
         >
-          <LoginRegistration />
+          <LoginRegistration buttonText="Acessar/Registrar" />
+        </div>
+
+        <div
+          style={{
+            border: "solid 1px red",
+            margin: "20px",
+            padding: "10px",
+            width: "700px",
+            height: "700px",
+          }}
+        >
+          <LoginRegistrationProfissional buttonText="Acessar/Registrar" />
         </div>
 
         <div
