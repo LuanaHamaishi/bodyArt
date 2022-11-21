@@ -162,7 +162,7 @@ export default function ParaEmpresa() {
             height: "700px",
           }}
         >
-          <LoginRegistration rota="profissionais" />
+          <LoginRegistration />
         </div>
 
         <div

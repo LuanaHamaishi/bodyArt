@@ -14,9 +14,8 @@ import { Input, Option, Select, InputMask } from "../inputs/Inputs";
 import { maskCpf } from "./maskRegex";
 import { Tabs, TabsContent, TabsItem, TabsList } from "../TabsRx";
 
-export default function LoginRegistration({ rota }) {
+export default function LoginRegistration({buttonText = "Login/Cadastro"}) {
   const [isOpen, setIsOpen] = useState(false);
-  const navegacao = rota == "clientes" ? "/inicio-cliente" : "/empresa";
 
   const navigate = useNavigate();
 
@@ -37,21 +36,14 @@ export default function LoginRegistration({ rota }) {
   const [errorsMessage, setErrorsMessage] = useState({});
 
   function setProfile(data) {
-    return rota === "clientes"
-      ? {
-          id: data.id,
-          nome: data.nomeCliente,
-          userRole: "cliente",
-        }
-      : {
-          id: data.id,
-          nome: data.nomeProfissional,
-          type: "pro",
-          userRole: "profissional",
-        };
+    return  {
+              id: data.id,
+              nome: data.nomeCliente,
+              userRole: "cliente",
+            }
   }
 
-  function Cadastrar(event) {
+  function Cadastrar() {
     const { register, handleSubmit, setValue, getValues } = useForm();
 
     const onSubmit = (data) => {
@@ -59,7 +51,7 @@ export default function LoginRegistration({ rota }) {
         .post(`/clientes`, data)
         .then((res) => {
           setUserProfile(setProfile(res.data));
-          navigate(navegacao);
+          navigate("/inicio-cliente");
         })
         .catch((erro) => {
           if (erro.response.status === 400) {
@@ -132,25 +124,25 @@ export default function LoginRegistration({ rota }) {
             label="Email"
             input={
               <Input
-                name="email"
+                name="emailCliente"
                 type="email"
-                {...register("email")}
+                {...register("emailCliente")}
                 placeholder="example@example.com"
               />
             }
-            errorLabel={errorsMessage?.email}
+            errorLabel={errorsMessage?.emailCliente}
           />
           <InputLabel
             label="Senha"
             input={
               <Input
-                name="senha"
+                name="senhaCliente"
                 type="password"
-                {...register("senha")}
+                {...register("senhaCliente")}
                 placeholder="***********"
               />
             }
-            errorLabel={errorsMessage?.senha}
+            errorLabel={errorsMessage?.senhaCliente}
           />
           <ContainerButton gap="1rem">
             <Button
@@ -176,7 +168,7 @@ export default function LoginRegistration({ rota }) {
     );
   }
 
-  function Logar(event) {
+  function Logar() {
     const { register, handleSubmit } = useForm();
 
     const onSubmit = (data) => {
@@ -184,7 +176,7 @@ export default function LoginRegistration({ rota }) {
         .post(`/clientes/autenticar`, data)
         .then((res) => {
           setUserProfile(setProfile(res.data));
-          navigate(navegacao);
+          navigate("/inicio-cliente");
         })
         .catch((erro) => {
           console.log(erro);
@@ -298,8 +290,8 @@ export default function LoginRegistration({ rota }) {
   return (
     <PopUp
       trigger={
-        <Button onClick={() => setIsOpen(true)} themeButton="cancel">
-          Acessar/Registrar Cliente
+        <Button onClick={() => setIsOpen(true)} themeButton="primary">
+          {buttonText}
         </Button>
       }
       dropClose
