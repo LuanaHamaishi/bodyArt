@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import imgLogo from "../assets/icons/logoW.svg";
 import { Button } from "./inputs/Buttons";
@@ -89,7 +90,9 @@ export default function Header({
 
   return (
     <StyledHeader>
-      <LogoHeader />
+      <Link to="/">
+        <LogoHeader />
+      </Link>
       <ContainerButtons>
         <HeaderRole />
       </ContainerButtons>
