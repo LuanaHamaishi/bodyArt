@@ -9,9 +9,9 @@ export const setUserProfile = ({id, nome, type, userRole}) => {
 
 export const getUserProfile = () => {
     return {
-        id: sessionStorage.get("id"),
-        name: sessionStorage.get("nome"),
-        type: sessionStorage.get("type"),
+        id: sessionStorage.getItem("id"),
+        name: sessionStorage.getItem("nome"),
+        type: sessionStorage.getItem("type"),
         role: sessionStorage.getItem("userRole")
     }
 }
