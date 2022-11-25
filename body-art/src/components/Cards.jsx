@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { AddButton } from "./inputs/Buttons";
-import { SubTitle, Title, TitleBox } from "./Title";
+// import { AddButton } from "./inputs/Buttons";
+import { Title } from "./Title";
 
 export default function Cards({ cardTitle, cardDescription, btnCard, imagem }) {
   return (
@@ -16,20 +16,30 @@ export default function Cards({ cardTitle, cardDescription, btnCard, imagem }) {
   );
 }
 
-export function CardServices() {
+export function CardServices({ services }) {
+  /*  const getServices = () => {
+   
+  }; */
+
+  /*  function handleService({ services }) {
+    console.log(res);
+  } */
   return (
     <CardService>
       <Title>Serviços:</Title>
-      <CardServiceContainer>
-        <TitleBox>
-          <Title>Nome serviço</Title>
-          <SubTitle>Duração serviço</SubTitle>
-        </TitleBox>
-        <div className="d-flex w-25 justify-content-evenly align-items-center">
-          <Title>R$00,00</Title>
-          <AddButton />
-        </div>
-      </CardServiceContainer>
+      {/*   {services.map((s) => (
+        <CardServiceContainer>
+          <TitleBox>
+            <Title>{s.procedimento}</Title>
+            <SubTitle>Duração serviço {s.duracao}</SubTitle>
+          </TitleBox>
+          <div className="d-flex w-25 justify-content-evenly align-items-center">
+            <Title>R${s.preco}</Title>
+
+            <PlusCircledIcon height={20} width={20} color={color.darkBlue} />
+          </div>
+        </CardServiceContainer>
+      ))} */}
     </CardService>
   );
 }
@@ -51,7 +61,7 @@ const CardService = styled.div`
   max-width: 500px;
   border: solid 2px #678c99;
   border-radius: 5px;
-  overflow-y: hidden;
+  overflow-y: scroll;
   display: flex;
   padding: 10px;
   display: flex;
@@ -68,4 +78,5 @@ const CardServiceContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 10px;
+  margin-bottom: 10px;
 `;

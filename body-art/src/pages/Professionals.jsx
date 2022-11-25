@@ -8,40 +8,65 @@ import { useParams } from "react-router-dom";
 
 export default function Professionals() {
   const params = useParams("/profissinal/:id/:nome");
-  const { nome } = params;
-  const [profissionais, setProfissionais] = useState([]);
+  const { nome, id } = params;
+  const [services, setServices] = useState([]);
 
   useEffect(() => {
-    api
-      .get()
-      .then((res) => {
-        setProfissionais(res.data.reverse());
-      })
-      .catch((erro) => {
-        console.log(erro);
-      });
+    if (services.length === 0) {
+      api
+        .get(`/itens-procedimentos/ordenacao?idProfissional=1`)
+        .then((res) => {
+          let algumaCoisa = res.data.vetor;
+          algumaCoisa.map((a) => {
+            setServices([
+              ...services,
+              {
+                idService: a.id,
+                nomeService: a.nomeItemProcedimento,
+                valorService: a.valorItemProcedimento,
+                duracaoService: a.duracaoItemProcedimento,
+                profissional: {
+                  id: a.profissional.id,
+                  nomeProfissional: a.profissional.nomeProfissional,
+                  enderecoProfissional: {
+                    rua: a.profissional.ruaProfissional,
+                    bairro: a.profissional.bairroProfissional,
+                    numero: a.profissional.numeroProfissional,
+                    cep: a.profissional.cepProfissional,
+                    cidade: a.profissional.ufProfissional,
+                  },
+                  descricaoProfissional: a.profissional.descricaoProfissional,
+                },
+              },
+            ]);
+          });
+
+          console.log(res.data.vetor[0]);
+        })
+        .catch((erro) => {
+          console.log(erro);
+        });
+    }
+    console.log("services", services);
   }, []);
   return (
     <div className="d-flex">
       <Content>
         <div>
-          {profissionais.map((prof) => {
+          {/* {profissionais.map((prof) => {
             if (prof.nome === nome) {
-              return (
-                <>
-                  {/* IMAGEM AQUI */}
-                  <ProfessionalImg imgUrl={prof.foto} />
-                  {/* NOME DO PROFISSIONAL AQUI */}
-                  <div className="d-flex flex-diretion-row justify-content-between align-items-center mb-4 mt-4">
-                    <Title> {prof.nome} </Title>
-                    {/* ENDEREÇO DO PROFISSIONAL AQUI */}
-                    <SubTitle> {prof.endereco} </SubTitle>
-                  </div>
-                </>
-              );
-            }
-            return <></>;
-          })}
+              return ( */}
+          <>
+            <ProfessionalImg /* imgUrl={prof.foto} */ />
+            <div className="d-flex flex-diretion-row justify-content-between align-items-center mb-4 mt-4">
+              <Title> {/* {prof.nome} */} </Title>
+              <SubTitle> {/* {prof.endereco} */} </SubTitle>
+            </div>
+          </>
+          {/* ); */}
+          {/* }
+            return <></>; */}
+          {/* })} */}
 
           {/* SERVIÇOS */}
           <CardServices />
