@@ -43,23 +43,34 @@ export const Card = ({
     padding: 0.5rem 0px;
   `;
 
-  const StyledContainerImage = styled.div`
+  const StyledContainerImageIcon = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
   `;
 
   const StyledImg = styled.img`
-    border: 1px solid red;
+    border: 1px solid ${color.blueSecondary};
     border-radius: 5px;
     width: 3.5rem;
     height: 3.5rem;
     object-fit: cover;
   `;
 
+  const StyledIcon = styled.div`
+    border: 1px solid ${color.blueSecondary};
+    border-radius: 5px;
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `;
+
   const StyledContainerOthers = styled.div`
     @media (max-width: 641px) {
       width: 100%;
+      margin: 0.2rem 0.2rem 1rem 0.2rem;
     }
     display: flex;
     justify-content: space-evenly;
@@ -75,7 +86,7 @@ export const Card = ({
       margin: 0.5rem;
       padding: 0.5rem 0px;
     }
-    margin-left: 0.3rem;
+    margin: 0px 0.3rem;
     display: flex;
     gap: 0.6rem;
   `;
@@ -97,9 +108,6 @@ export const Card = ({
   `;
 
   const StyledOthers = styled.div`
-    @media (max-width: 641px) {
-      margin: 0.2rem;
-    }
     display: flex;
     align-items: center;
     justify-content: center;
@@ -110,10 +118,16 @@ export const Card = ({
     <div style={{ gap: "1rem", display: "flex", flexDirection: "column" }}>
       <StyledCard>
         <StyledContainerPhotoDescription>
-          {image ? (
-            <StyledContainerImage>
-              <StyledImg src={image} />
-            </StyledContainerImage>
+          {image || icon ? (
+            image ? (
+              <StyledContainerImageIcon>
+                <StyledImg src={image} />
+              </StyledContainerImageIcon>
+            ) : (
+              <StyledContainerImageIcon>
+                <StyledIcon>{icon}</StyledIcon>
+              </StyledContainerImageIcon>
+            )
           ) : null}
           <StyledContainerDescription>
             <Label nolineHeight fontWeight="500" fontSize="1rem">
