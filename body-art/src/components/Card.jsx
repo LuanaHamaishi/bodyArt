@@ -5,6 +5,7 @@ export const Card = ({
   children,
   titlePrice,
   title,
+  address,
   description,
   image,
   icon,
@@ -32,11 +33,11 @@ export const Card = ({
   `;
 
   const StyledContainerDescription = styled.div`
+    width: ${address ? "100%" : null};
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding: 0.5rem 0px;
+    flex-direction: ${address ? "row" : "column"};
+    align-items: center;
+    justify-content: ${address ? "space-between" : "center"};
   `;
 
   const StyledContainerImageIcon = styled.div`
@@ -82,6 +83,7 @@ export const Card = ({
       margin: 0.5rem;
       padding: 0.5rem 0px;
     }
+    width: ${address ? "100%" : null};
     margin: 0px 0.3rem;
     display: flex;
     gap: 0.6rem;
@@ -126,10 +128,17 @@ export const Card = ({
             )
           ) : null}
           <StyledContainerDescription>
-            <Label nolineHeight fontWeight="500" fontSize="1rem">
-              {title}
-            </Label>
-            <Label nolineHeight>{description}</Label>
+            {title ? (
+              <Label nolineHeight fontWeight="500" fontSize="1rem">
+                {title}
+              </Label>
+            ) : null}
+            {address ? (
+              <Label nolineHeight fontWeight="500" fontSize="1rem">
+                {address}
+              </Label>
+            ) : null}
+            {description ? <Label nolineHeight>{description}</Label> : null}
           </StyledContainerDescription>
         </StyledContainerPhotoDescription>
         <StyledContainerOthers>
