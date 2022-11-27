@@ -2,9 +2,9 @@ import React from "react";
 import { SubTitle, Title, TitleBox } from "../components/Title";
 import { Content } from "../components/Content";
 import PopUpRx from "../components/PopUpRx";
-import InputLabelRx from "../components/descontinuado/InputLabelRx";
-import DescriptionRx from "../components/inputs/DescriptionRx";
-import TitleRx from "../components/inputs/TitleRx";
+// import InputLabelRx from "../components/descontinuado/InputLabelRx";
+// import DescriptionRx from "../components/inputs/Description";
+// import TitleRx from "../components/inputs/Title";
 import FileUploadPage from "../components/ImportTeste";
 // import TabsDemo from "../components/LabelComponenciarAinda";
 // import { Tabs, TabsList, TabsTrigger, TabsContent } from "../components/TabsRx";
@@ -14,12 +14,47 @@ import { Tabs, TabsContent, TabsItem, TabsList } from "../components/TabsRx";
 import ToastDemo from "../components/descontinuado/ToastRx";
 import { Option, SelectLabel } from "../components/descontinuado/SelectLabel";
 import LoginRegistrationProfissional from "../components/form/LoginRegistrationProfissional";
+import CalendarComponent from "../components/Calendar";
+// import TesteCalendar from "../components/TesteCalendar";
+
 // import AppTwo from "../components/CalendarComInfo.jsx";
 
 export default function ParaEmpresa() {
+  // const [data, setData] = useState();
+
   return (
     <>
       <Content headerTransMarginAuto={true}>
+        <div
+          style={{
+            border: "solid 1px red",
+            margin: "20px",
+            padding: "10px",
+            width: "100%",
+            display: "flex",
+          }}
+        >
+          <div
+            style={{
+              border: "solid 1px red",
+              margin: "20px",
+              padding: "10px",
+              width: "50%",
+              height: "95%",
+            }}
+          >
+            <CalendarComponent />
+          </div>
+          <div
+            style={{
+              border: "solid 1px red",
+              margin: "20px",
+              padding: "10px",
+              width: "50%",
+              height: "95%",
+            }}
+          ></div>
+        </div>
         <div
           style={{ border: "solid 1px red", margin: "20px", padding: "10px" }}
         >
@@ -176,6 +211,18 @@ export default function ParaEmpresa() {
           }}
         >
           <LoginRegistrationProfissional buttonText="Acessar/Registrar" />
+        </div>
+
+        <div
+          style={{
+            border: "solid 1px red",
+            margin: "20px",
+            padding: "10px",
+            width: "700px",
+            height: "700px",
+          }}
+        >
+          <CalendarComponent />
         </div>
 
         <div

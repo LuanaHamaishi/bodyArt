@@ -16,7 +16,7 @@ export const Tabs = ({ pageDefault, children, width, height }) => {
 
     document.querySelectorAll(".class-tabs-item").forEach((element, indice) => {
       if (element.id != index) {
-        element.style.borderBottom = `0.5px solid ${color.blackOpacityTwenty}`;
+        element.style.borderBottom = `0.5px solid #00000020`;
         element.style.color = "#949494";
       }
 

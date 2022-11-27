@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PopUp from "../PopUpRx";
-import Description from "../inputs/DescriptionRx";
-import Title from "../inputs/TitleRx";
+import Description from "../inputs/Description";
+import Title from "../inputs/Title";
 import styled from "styled-components";
 import { Button } from "../inputs/Buttons";
 import api from "../../api";
@@ -9,12 +9,14 @@ import { useNavigate } from "react-router-dom";
 import { setUserProfile } from "../../hooks/userProfile";
 import Validate from "./Validation";
 import { useForm } from "react-hook-form";
-import InputLabel from "../inputs/InputLabel";
+import InputLabel, { Label } from "../inputs/InputLabel";
 import { Input, Option, Select, InputMask } from "../inputs/Inputs";
 import { maskCep, maskCpf } from "./maskRegex";
 import { Tabs, TabsContent, TabsItem, TabsList } from "../TabsRx";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { color } from "../../assets/colors";
+import { useEffect } from "react";
 
 export default function LoginRegistrationProfissional({
   buttonText,
@@ -45,6 +47,26 @@ export default function LoginRegistrationProfissional({
     gap: ${({ gap }) => (gap ? gap : "2rem")};
   `;
 
+  const ButtonCep = styled.div.attrs({ className: "btn" })`
+    background-color: ${color.bluePrimary} !important;
+    color: ${color.shineWhite} !important;
+    :hover {
+      background-color: ${color.brownLight} !important;
+      color: ${color.shineWhite} !important;
+    }
+    :active {
+      background-color: ${color.bluePrimary} !important;
+      color: ${color.shineWhite} !important;
+    }
+  `;
+
+  const ContainerTitleDescription = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0px 25px;
+    gap: 5px;
+  `;
+
   const [errorsMessage, setErrorsMessage] = useState({});
 
   function setProfile(data) {
@@ -58,7 +80,16 @@ export default function LoginRegistrationProfissional({
 
   function Cadastrar() {
     const [part, setPart] = useState(1);
-    const { register, handleSubmit, setValue, getValues } = useForm();
+    const { register, handleSubmit, setValue, getValues, reset } = useForm();
+
+    useEffect(() => {
+      return isOpen
+        ? undefined
+        : () => {
+            reset();
+            setPart(1);
+          };
+    }, [isOpen]);
 
     const getAddress = async (cep) => {
       const { data } = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
@@ -67,6 +98,33 @@ export default function LoginRegistrationProfissional({
       setValue("cidadeProfissional", data.localidade);
       setValue("ufProfissional", data.uf);
       setValue("bairroProfissional", data.bairro);
+    };
+
+    const errorPage = () => {
+      if (
+        errorsMessage?.nomeProfissional ||
+        errorsMessage?.cpfProfissional ||
+        errorsMessage?.generoProfissional ||
+        errorsMessage?.emailProfissional ||
+        errorsMessage?.dataNascProfissional ||
+        errorsMessage?.senhaProfissional
+      ) {
+        return (
+          <Label
+            style={{
+              fontWeight: "600",
+              marginLeft: "-0.5rem",
+              fontSize: "0.9rem",
+            }}
+            className="mt-3"
+            color="red"
+          >
+            Error
+          </Label>
+        );
+      } else {
+        return null;
+      }
     };
 
     const onSubmit = (data) => {
@@ -89,8 +147,10 @@ export default function LoginRegistrationProfissional({
     const RegistrationPartOne = () => {
       return (
         <>
-          <Title>Dados</Title>
-          <Description>Faça seu registro</Description>
+          <ContainerTitleDescription>
+            <Title>Dados</Title>
+            <Description>Faça seu registro</Description>
+          </ContainerTitleDescription>
           <InputLabel
             label="Nome"
             input={
@@ -173,6 +233,7 @@ export default function LoginRegistrationProfissional({
 
           <ContainerSubmit gap="1rem">
             <Button
+              className="btn-sm mt-2"
               themeButton="primary"
               onClick={() => {
                 setValue(
@@ -194,8 +255,11 @@ export default function LoginRegistrationProfissional({
     const RegistrationPartTwo = () => {
       return (
         <>
-          <Title>Endereço</Title>
-          <Description>Local de trabalho</Description>
+          <ContainerTitleDescription>
+            <Title>Endereço</Title>
+            <Description>Local de trabalho</Description>
+          </ContainerTitleDescription>
+
           <ContainerTwoInput>
             <InputLabel
               label="Cep"
@@ -210,9 +274,8 @@ export default function LoginRegistrationProfissional({
               }
               errorLabel={errorsMessage?.cepProfissional}
             />
-            <Button
+            <ButtonCep
               className="btn-sm mt-2"
-              themeButton="primary"
               onClick={() =>
                 getAddress(
                   new URLSearchParams(
@@ -222,7 +285,7 @@ export default function LoginRegistrationProfissional({
               }
             >
               Buscar
-            </Button>
+            </ButtonCep>
           </ContainerTwoInput>
           <ContainerTwoInput>
             <InputLabel
@@ -311,15 +374,21 @@ export default function LoginRegistrationProfissional({
           />
           <ContainerButton>
             <ContainerSubmit gap="1rem">
-              <Button themeButton="primary" onClick={() => setPart(1)}>
+              <Button
+                className="btn-sm mt-2"
+                themeButton="primary"
+                onClick={() => setPart(1)}
+              >
                 Voltar
               </Button>
+              {errorPage()}
             </ContainerSubmit>
             <ContainerSubmit gap="1rem">
               <Button
                 themeButton="confirm"
                 type="submit"
                 onClick={() => {
+                  errorPage();
                   setValue(
                     "cepProfissional",
                     `${new URLSearchParams(
@@ -330,7 +399,12 @@ export default function LoginRegistrationProfissional({
               >
                 Registrar
               </Button>
-              <Button themeButton="cancel" onClick={() => setIsOpen(false)}>
+              <Button
+                themeButton="cancel"
+                onClick={() => {
+                  setIsOpen(false);
+                }}
+              >
                 Cancelar
               </Button>
             </ContainerSubmit>
@@ -349,7 +423,15 @@ export default function LoginRegistrationProfissional({
   }
 
   function Logar() {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
+
+    useEffect(() => {
+      return isOpen
+        ? undefined
+        : () => {
+            reset();
+          };
+    }, [isOpen]);
 
     const onSubmit = (data) => {
       api
@@ -368,8 +450,11 @@ export default function LoginRegistrationProfissional({
 
     return (
       <>
-        <Title>Acesso</Title>
-        <Description>Faça seu login</Description>
+        <ContainerTitleDescription>
+          <Title>Acesso</Title>
+          <Description>Faça seu login</Description>
+        </ContainerTitleDescription>
+
         <form id="form-login" onSubmit={handleSubmit(onSubmit)}>
           <InputLabel
             label="Email"

@@ -4,6 +4,7 @@ export const Content = ({
   headerTransDisabled,
   headerTransMarginAuto,
   contentSmaller,
+  padding,
   disabledTop,
   disabledBottom,
   disabledLeft,
@@ -20,16 +21,18 @@ export const Content = ({
     // PADDING-Top
     ${disabledTop
       ? null
-      : `padding-top: ${headerTransMarginAuto ? "96px" : "48px"} !important;`}
+      : `padding-top: ${headerTransMarginAuto ? "96px" : "48px"};`}
 
     // PADDING-Bottom
-  ${disabledBottom ? null : `padding-bottom: 48px !important;`}
+  ${disabledBottom ? null : `padding-bottom: 48px;`}
 
   // PADDING-Left
-  ${disabledLeft ? null : `padding-left: 96px !important;`}
+  ${disabledLeft ? null : `padding-left: 96px;`}
 
   // PADDING-Right
-  ${disabledRight ? null : `padding-right: 96px !important;`}
+  ${disabledRight ? null : `padding-right: 96px;`}
+
+  ${padding ? `padding: ${padding};` : null}
 
   // IMAGEM
   ${imgUrl ? `background-image: url(${imgUrl}); background-size: cover;` : null}

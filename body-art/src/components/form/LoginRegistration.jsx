@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PopUp from "../PopUpRx";
-import Description from "../inputs/DescriptionRx";
-import Title from "../inputs/TitleRx";
+import Description from "../inputs/Description";
+import Title from "../inputs/Title";
 import styled from "styled-components";
 import { Button } from "../inputs/Buttons";
 import api from "../../api";
@@ -34,6 +34,13 @@ export default function LoginRegistration({ buttonText, themeButton }) {
     gap: ${({ gap }) => (gap ? gap : "2rem")};
   `;
 
+  const ContainerTitleDescription = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0px 25px;
+    gap: 5px;
+  `;
+
   const [errorsMessage, setErrorsMessage] = useState({});
 
   function setProfile(data) {
@@ -45,7 +52,15 @@ export default function LoginRegistration({ buttonText, themeButton }) {
   }
 
   function Cadastrar() {
-    const { register, handleSubmit, setValue, getValues } = useForm();
+    const { register, handleSubmit, setValue, getValues, reset } = useForm();
+
+    useEffect(() => {
+      return isOpen
+        ? undefined
+        : () => {
+            reset();
+          };
+    }, [isOpen]);
 
     const onSubmit = (data) => {
       api
@@ -67,8 +82,10 @@ export default function LoginRegistration({ buttonText, themeButton }) {
 
     return (
       <>
-        <Title>Dados</Title>
-        <Description>Faça seu registro</Description>
+        <ContainerTitleDescription>
+          <Title>Dados</Title>
+          <Description>Faça seu registro</Description>
+        </ContainerTitleDescription>
 
         <form id="form-registration" onSubmit={handleSubmit(onSubmit)}>
           <InputLabel
@@ -172,7 +189,15 @@ export default function LoginRegistration({ buttonText, themeButton }) {
   }
 
   function Logar() {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
+
+    useEffect(() => {
+      return isOpen
+        ? undefined
+        : () => {
+            reset();
+          };
+    }, [isOpen]);
 
     const onSubmit = (data) => {
       api
@@ -183,17 +208,20 @@ export default function LoginRegistration({ buttonText, themeButton }) {
           navigate("/inicio-cliente");
         })
         .catch((erro) => {
+          toast.warning("Login inválido!");
           console.log(erro);
 
           setErrorsMessage(Validate(erro.response.data.errors));
-          toast.warning("Login inválido!");
         });
     };
 
     return (
       <>
-        <Title>Acesso</Title>
-        <Description>Faça seu login</Description>
+        <ContainerTitleDescription>
+          <Title>Acesso</Title>
+          <Description>Faça seu login</Description>
+        </ContainerTitleDescription>
+
         <form id="form-login" onSubmit={handleSubmit(onSubmit)}>
           <InputLabel
             label="Email"
