@@ -13,12 +13,8 @@ export const Card = ({
 }) => {
   const StyledCard = styled.div`
     color: ${color.bluePrimary};
-    border: none;
-    box-shadow: 0 0 0 1px ${color.blueSecondary};
-    :focus {
-      border: none;
-      box-shadow: 0 0 0 2px ${color.blueSecondary};
-    }
+    border: 1px solid ${color.blueSecondary};
+    box-shadow: 1px 1px 1px 1px ${color.blue};
     display: flex;
     padding: 0.6rem;
     border-radius: 3px;
@@ -96,7 +92,7 @@ export const Card = ({
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1.1rem;
+    gap: 1.2rem;
   `;
 
   const StyledHours = styled.div`
@@ -111,7 +107,7 @@ export const Card = ({
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
+    gap: 1.2rem;
   `;
 
   return (
@@ -140,7 +136,7 @@ export const Card = ({
           {price ? (
             <StyledPrice>
               {titlePrice ? <Label>Preço</Label> : null}
-              <Label fontWeight="500" fontSize="1.2rem">
+              <Label fontWeight="400" fontSize="1.5rem">
                 {price}
               </Label>
             </StyledPrice>
