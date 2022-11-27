@@ -8,6 +8,7 @@ export const Card = ({
   address,
   description,
   image,
+  maxChildren,
   icon,
   hours,
   price,
@@ -69,8 +70,11 @@ export const Card = ({
       width: 100%;
       margin: 0.2rem 0.2rem 1rem 0.2rem;
     }
+    width: ${maxChildren ? "100%" : null};
     display: flex;
-    justify-content: space-evenly;
+    justify-content:/*  ${maxChildren
+      ? "space-between"
+      : "space-evenly"} */ space-evenly;
     align-items: center;
     gap: 1rem;
   `;
@@ -112,22 +116,44 @@ export const Card = ({
     gap: 1.2rem;
   `;
 
+  const StyledContainer = styled.div`
+    display: flex;
+    width: ${maxChildren ? "100%" : null};
+    flex-direction: column;
+    gap: 1rem;
+  `;
+
   return (
-    <div style={{ gap: "1rem", display: "flex", flexDirection: "column" }}>
+    <StyledContainer>
       <StyledCard>
         <StyledContainerPhotoDescription>
-          {image || icon ? (
-            image ? (
-              <StyledContainerImageIcon>
-                <StyledImg src={image} />
-              </StyledContainerImageIcon>
-            ) : (
-              <StyledContainerImageIcon>
-                <StyledIcon>{icon}</StyledIcon>
-              </StyledContainerImageIcon>
-            )
+          {!address ? (
+            image || icon ? (
+              image ? (
+                <StyledContainerImageIcon>
+                  <StyledImg src={image} />
+                </StyledContainerImageIcon>
+              ) : (
+                <StyledContainerImageIcon>
+                  <StyledIcon>{icon}</StyledIcon>
+                </StyledContainerImageIcon>
+              )
+            ) : null
           ) : null}
           <StyledContainerDescription>
+            {address ? (
+              image || icon ? (
+                image ? (
+                  <StyledContainerImageIcon>
+                    <StyledImg src={image} />
+                  </StyledContainerImageIcon>
+                ) : (
+                  <StyledContainerImageIcon>
+                    <StyledIcon>{icon}</StyledIcon>
+                  </StyledContainerImageIcon>
+                )
+              ) : null
+            ) : null}
             {title ? (
               <Label nolineHeight fontWeight="500" fontSize="1rem">
                 {title}
@@ -161,6 +187,6 @@ export const Card = ({
           <StyledOthers>{children}</StyledOthers>
         </StyledContainerOthers>
       </StyledCard>
-    </div>
+    </StyledContainer>
   );
 };
