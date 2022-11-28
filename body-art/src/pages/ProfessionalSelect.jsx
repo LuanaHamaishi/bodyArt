@@ -1,8 +1,10 @@
+// import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../api";
+// import api from "../api";
 import { color } from "../assets/colors";
 import Cards from "../components/Cards";
 import { Content } from "../components/Content";
@@ -11,14 +13,18 @@ export default function ProfessionalSelect() {
   const [profissionais, setProfissionais] = useState([]);
 
   useEffect(() => {
-    api
-      .get()
-      .then((res) => {
-        setProfissionais(res.data.reverse());
-      })
-      .catch((erro) => {
-        console.log(erro);
-      });
+    if (profissionais.length === 0) {
+      api
+        .get("/profissionais")
+        // axios
+        //   .get("https://63795bc67419b414df8dedcf.mockapi.io/api/profissionais")
+        .then((res) => {
+          setProfissionais(res.data);
+        })
+        .catch((erro) => {
+          console.error(erro);
+        });
+    }
   }, []);
 
   return (
@@ -28,7 +34,7 @@ export default function ProfessionalSelect() {
           {profissionais.map((prof) => (
             <div className="col-sm-3 mb-4">
               <Link
-                to={`/profissional/${prof.id}/${prof.nome}`}
+                to={`/profissional/${prof.id}/${prof.nomeProfissional}`}
                 style={{
                   textDecoration: "none",
                   color: `${color.darkBlue}`,
@@ -36,10 +42,10 @@ export default function ProfessionalSelect() {
               >
                 <Cards
                   key={prof.id}
-                  imagem={prof.foto}
+                  imagem={prof.fotoPerfilProfissional}
                   btnCard="Ver"
-                  cardTitle={prof.nome}
-                  cardDescription={prof.endereco}
+                  cardTitle={prof.nomeProfissional}
+                  cardDescription={`${prof.ruaProfissional} ${prof.numeroProfissional}, ${prof.bairroProfissional}`}
                 />
               </Link>
             </div>

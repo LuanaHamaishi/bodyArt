@@ -5,8 +5,13 @@ import { Title } from "./Title";
 
 export default function Cards({ cardTitle, cardDescription, btnCard, imagem }) {
   return (
-    <Card className="card" style={{ width: "18rem", marginTop: "0px" }}>
-      <img src={imagem} className="card-img-top" alt="imagem" />
+    <Card className="card">
+      <img
+        style={{ height: "190px", objectFit: "cover" }}
+        src={imagem}
+        className="card-img-top"
+        alt="imagem"
+      />
       <CardBody className="card-body">
         <h5 className="card-title">{cardTitle}</h5>
         <p className="card-text">{cardDescription}</p>
@@ -45,7 +50,9 @@ export function CardServices({ services }) {
 }
 
 const Card = styled.div`
+  height: 370px;
   width: 18rem;
+  object-fit: cover;
   margin-right: 2rem;
   border: solid 1px #678c99;
 `;
@@ -57,7 +64,8 @@ const CardBody = styled.div`
 `;
 
 const CardService = styled.div`
-  height: 500px;
+  /* height: 500px; */
+  max-height: 400px;
   max-width: 500px;
   border: solid 2px #678c99;
   border-radius: 5px;
@@ -68,7 +76,7 @@ const CardService = styled.div`
   flex-direction: column;
 `;
 
-const CardServiceContainer = styled.div`
+/* const CardServiceContainer = styled.div`
   height: 75px;
   width: 100%;
   border: solid 2px #678c99;
@@ -80,3 +88,4 @@ const CardServiceContainer = styled.div`
   padding: 10px;
   margin-bottom: 10px;
 `;
+ */

@@ -1,140 +1,224 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { CardServices } from "../components/Cards";
-import { Content } from "../components/Content";
-import { SubTitle, Title } from "../components/Title";
-import api from "../api";
+import axios from "axios";
+import React, { useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
+import { color } from "../assets/colors";
+import { Card } from "../components/Card";
+import { Content } from "../components/Content";
+import { PlusCircledIcon, TrashIcon } from "@radix-ui/react-icons";
+import { toast } from "react-toastify";
+import api from "../api";
 
 export default function Professionals() {
-  const params = useParams("/profissinal/:id/:nome");
-  const { nome, id } = params;
+  const params = useParams("/profissional/:id/:nome");
+  const { id } = params;
+  const [profissionais, setProfissionais] = useState([]);
   const [services, setServices] = useState([]);
+  const [addServices, setAddServices] = useState([]);
 
   useEffect(() => {
     if (services.length === 0) {
       api
-        .get(`/itens-procedimentos/ordenacao?idProfissional=1`)
+        .get(`/itens-procedimentos/ordenacao?idProfissional=${id}`)
+        // axios
+        //   .get("https://63795bc67419b414df8dedcf.mockapi.io/api/services")
         .then((res) => {
-          let algumaCoisa = res.data.vetor;
-          algumaCoisa.map((a) => {
-            setServices([
-              ...services,
-              {
-                idService: a.id,
-                nomeService: a.nomeItemProcedimento,
-                valorService: a.valorItemProcedimento,
-                duracaoService: a.duracaoItemProcedimento,
-                profissional: {
-                  id: a.profissional.id,
-                  nomeProfissional: a.profissional.nomeProfissional,
-                  enderecoProfissional: {
-                    rua: a.profissional.ruaProfissional,
-                    bairro: a.profissional.bairroProfissional,
-                    numero: a.profissional.numeroProfissional,
-                    cep: a.profissional.cepProfissional,
-                    cidade: a.profissional.ufProfissional,
-                  },
-                  descricaoProfissional: a.profissional.descricaoProfissional,
-                },
-              },
-            ]);
-          });
+          setProfissionais(res.data.vetor[0].profissional);
 
-          console.log(res.data.vetor[0]);
+          setServices(res.data.vetor);
         })
-        .catch((erro) => {
-          console.log(erro);
+        .catch((err) => {
+          console.error(err);
         });
     }
-    console.log("services", services);
-  }, []);
+  });
+
+  function addService(id) {
+    console.log(id);
+    let service = services.filter((s) => s.id === id);
+    setAddServices([...addServices, service[0]]);
+    setServices(services.filter((s) => s.id !== id));
+  }
+
+  function removeService(id) {
+    let service = addServices.filter((s) => s.id === id);
+    setServices([...services, service[0]]);
+    setAddServices(addServices.filter((s) => s.id !== id));
+  }
+
+  function clear() {
+    let mem = [...services];
+    addServices.map((s) => {
+      mem = [...mem, s];
+      return <></>;
+    });
+    setServices(mem);
+    setAddServices([]);
+  }
+
+  function toSchedule() {
+    if (addServices.length === 0) {
+      toast.warning("Você não tem nenhum serviço adicionado!");
+    }
+  }
+
+  function renderDuracaoServico(duracao) {
+    let horas = duracao[0];
+    let minutos = duracao[1];
+
+    return `
+    ${horas === 0 ? " " : `${horas}h `}${minutos === 0 ? " " : `${minutos}min`}
+    `;
+  }
+
   return (
-    <div className="d-flex">
-      <Content>
-        <div>
-          {/* {profissionais.map((prof) => {
-            if (prof.nome === nome) {
-              return ( */}
-          <>
-            <ProfessionalImg /* imgUrl={prof.foto} */ />
-            <div className="d-flex flex-diretion-row justify-content-between align-items-center mb-4 mt-4">
-              <Title> {/* {prof.nome} */} </Title>
-              <SubTitle> {/* {prof.endereco} */} </SubTitle>
-            </div>
-          </>
-          {/* ); */}
-          {/* }
-            return <></>; */}
-          {/* })} */}
+    <div>
+      <Content contentSmaller padding="20px 85px">
+        <Card
+          image={profissionais.fotoPerfilProfissional}
+          title={profissionais.nomeProfissional}
+          address={`
+            ${profissionais.ruaProfissional} ${profissionais.numeroProfissional}, ${profissionais.bairroProfissional} 
+            `}
+        />
 
-          {/* SERVIÇOS */}
-          <CardServices />
-        </div>
+        <ContainerService>
+          <ContainerCards>
+            <Title>Serviços</Title>
+            <Cards>
+              {services.map((s, i) => {
+                return (
+                  <Card
+                    title={s.nomeItemProcedimento}
+                    description={renderDuracaoServico(
+                      s.duracaoItemProcedimento
+                    )}
+                    price={"R$" + s.valorItemProcedimento}
+                    key={s.id}
+                    children={
+                      <PlusCircledIcon
+                        height={20}
+                        width={20}
+                        color={color.darkBlue}
+                        style={{ cursor: "pointer" }}
+                        onClick={() => addService(s.id)}
+                      />
+                    }
+                  />
+                );
+              })}
+            </Cards>
+          </ContainerCards>
+          <ContainerCards>
+            <Title>Serviços adicionados</Title>
+            <Cards>
+              {addServices.map((as) => {
+                return (
+                  <Card
+                    title={as.nomeItemProcedimento}
+                    description={renderDuracaoServico(
+                      as.duracaoItemProcedimento
+                    )}
+                    price={"R$" + as.valorItemProcedimento}
+                    key={as.id}
+                    children={
+                      <TrashIcon
+                        height={20}
+                        width={20}
+                        color={color.darkBlue}
+                        style={{ cursor: "pointer" }}
+                        onClick={() => removeService(as.id)}
+                      />
+                    }
+                  />
+                );
+              })}
+            </Cards>
+            <Card
+              maxChildren
+              children={
+                <div
+                  style={{ width: "100%" }}
+                  className="d-flex justify-content-between"
+                >
+                  <StyledButton className="mx-5" onClick={() => clear()}>
+                    Limpar
+                  </StyledButton>
+                  <StyledButton className="mx-5" onClick={() => toSchedule()}>
+                    Agendar
+                  </StyledButton>
+                </div>
+              }
+            />
+          </ContainerCards>
+        </ContainerService>
       </Content>
-      <Container>
-        {/* BOX DE INFORMAÇÕES */}
-        <SideInfo>
-          {/* Endereço */}
-          {/*   {profissionais.map((prof) =>{
-            if(prof.nome === nome){
-              return()
-            }
-          })} */}
-          <ProfessionalImg
-            imgUrl={`https://image.webmotors.com.br/_fotos/anunciousados/gigante/2022/202206/20220627/chevrolet-corvette-6.2-stingray-conversivel-v8-gasolina-2p-automatico-wmimagem09462020626.jpg?s=fill&w=1920&h=1440&q=75`}
-          />
-          <Title>Nome do profissional</Title>
-
-          <SubTitle>Endereço profissional</SubTitle>
-          <SubTitle>Horário de atendimento</SubTitle>
-          <SubTitle>Endereço profissional</SubTitle>
-          <SubTitle>Endereço profissional</SubTitle>
-          <SubTitle>Endereço profissional</SubTitle>
-          <SubTitle>Endereço profissional</SubTitle>
-        </SideInfo>
-      </Container>
     </div>
   );
 }
 
-const SideInfo = styled.div`
-  height: 100vh;
-  width: 40vw;
-  background-color: #f3f3f3;
-  border-radius: 5px;
-  border: 2px solid #678c99;
-  padding: 2rem;
+const ContainerService = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  max-width: 100%;
+  height: 100%;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
 `;
 
-const ProfessionalImg = ({ imgUrl, ...props }) => {
-  const Image = styled.div`
-    height: 40vh;
-    width: 100%;
-    background-color: violet;
-
-    ${imgUrl
-      ? `background-image: url(${imgUrl}); background-size: cover ;`
-      : null}
-  `;
-
-  return (
-    <>
-      <Image></Image>
-    </>
-  );
-};
-
-const Container = styled.div`
-  height: 100%;
-  width: 100%;
+const ContainerCards = styled.div`
+  /* background-color: #3eefef; */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding-left: 96px !important;
-  padding-right: 96px !important;
-  padding-top: 48px !important;
+  max-width: 650px;
+  width: 100%;
+  height: 485px;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 5px 5px;
+`;
+const Cards = styled.div`
+  border: solid 2px ${color.blueSecondary};
+  border-radius: 9px;
+  padding: 2% 2%;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${color.bluePrimary};
+    border-radius: 20px;
+    border: 3px solid ${color.blue};
+  }
+  ::-webkit-scrollbar-track {
+    border-radius: 0px 5px 5px 0px;
+    background: ${color.blue};
+  }
+`;
+
+const Title = styled.h2`
+  position: none;
+`;
+
+const StyledButton = styled.button`
+  background-color: ${color.bluePrimary};
+  color: ${color.beigeEmphasis};
+  font-weight: 600;
+  font-size: 18px;
+  width: 100px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: 0.2s;
+  :hover {
+    background-color: ${color.beigeEmphasis};
+    color: ${color.bluePrimary};
+  }
 `;
