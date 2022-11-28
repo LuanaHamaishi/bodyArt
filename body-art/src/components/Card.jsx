@@ -93,7 +93,6 @@ export const Card = ({
     width: ${address ? "100%" : null};
     margin: 0px 0.3rem;
     display: flex;
-    gap: 0.6rem;
   `;
 
   const StyledPrice = styled.div`
@@ -127,11 +126,13 @@ export const Card = ({
   `;
 
   const ContainerTitle = styled.div`
+    margin-left: 1rem;
     display: flex;
     width: 100%;
   `;
 
   const ContainerDescription = styled.div`
+    margin-left: 1rem;
     display: flex;
     width: 100%;
   `;
