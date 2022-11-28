@@ -175,13 +175,15 @@ export const Card = ({
               </ContainerTitle>
             ) : null}
             {address ? (
+              <Label nolineHeight fontWeight="500" fontSize="1rem">
+                {address}
+              </Label>
+            ) : null}
+            {description ? (
               <ContainerDescription>
-                <Label nolineHeight fontWeight="500" fontSize="1rem">
-                  {address}
-                </Label>
+                <Label nolineHeight>{description}</Label>
               </ContainerDescription>
             ) : null}
-            {description ? <Label nolineHeight>{description}</Label> : null}
           </StyledContainerDescription>
         </StyledContainerPhotoDescription>
         <StyledContainerOthers>
