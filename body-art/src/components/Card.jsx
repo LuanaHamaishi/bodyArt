@@ -131,6 +131,11 @@ export const Card = ({
     width: 100%;
   `;
 
+  const ContainerDescription = styled.div`
+    display: flex;
+    width: 100%;
+  `;
+
   return (
     <StyledContainer>
       <StyledCard>
@@ -170,9 +175,11 @@ export const Card = ({
               </ContainerTitle>
             ) : null}
             {address ? (
-              <Label nolineHeight fontWeight="500" fontSize="1rem">
-                {address}
-              </Label>
+              <ContainerDescription>
+                <Label nolineHeight fontWeight="500" fontSize="1rem">
+                  {address}
+                </Label>
+              </ContainerDescription>
             ) : null}
             {description ? <Label nolineHeight>{description}</Label> : null}
           </StyledContainerDescription>
