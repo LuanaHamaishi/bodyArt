@@ -12,11 +12,13 @@ export const Card = ({
   icon,
   hours,
   price,
+  width,
+  noShadow,
 }) => {
   const StyledCard = styled.div`
     color: ${color.bluePrimary};
     border: 1px solid ${color.blueSecondary};
-    box-shadow: 1px 1px 1px 1px ${color.blue};
+    box-shadow: ${noShadow ? null : `1px 1px 1px 1px ${color.blue}`};
     display: flex;
     padding: 0.6rem;
     border-radius: 3px;
@@ -76,7 +78,8 @@ export const Card = ({
       ? "space-between"
       : "space-evenly"} */ space-evenly;
     align-items: center;
-    gap: 1rem;
+    gap: 1.3rem;
+    flex-wrap: wrap;
   `;
 
   const StyledContainerPhotoDescription = styled.div`
@@ -118,9 +121,14 @@ export const Card = ({
 
   const StyledContainer = styled.div`
     display: flex;
-    width: ${maxChildren ? "100%" : null};
+    width: ${maxChildren || width ? (width ? width : "100%") : null};
     flex-direction: column;
     gap: 1rem;
+  `;
+
+  const ContainerTitle = styled.div`
+    display: flex;
+    width: 100%;
   `;
 
   return (
@@ -155,9 +163,11 @@ export const Card = ({
               ) : null
             ) : null}
             {title ? (
-              <Label nolineHeight fontWeight="500" fontSize="1rem">
-                {title}
-              </Label>
+              <ContainerTitle>
+                <Label nolineHeight fontWeight="500" fontSize="1rem">
+                  {title}
+                </Label>
+              </ContainerTitle>
             ) : null}
             {address ? (
               <Label nolineHeight fontWeight="500" fontSize="1rem">
@@ -171,7 +181,7 @@ export const Card = ({
           {price ? (
             <StyledPrice>
               {titlePrice ? <Label>Preço</Label> : null}
-              <Label fontWeight="400" fontSize="1.5rem">
+              <Label fontWeight="400" fontSize="1rem">
                 {price}
               </Label>
             </StyledPrice>
@@ -179,7 +189,7 @@ export const Card = ({
           {hours ? (
             <StyledHours>
               <Label>Horário</Label>
-              <Label fontWeight="400" fontSize="1.5rem">
+              <Label fontWeight="400" fontSize="1rem">
                 {hours}
               </Label>
             </StyledHours>
