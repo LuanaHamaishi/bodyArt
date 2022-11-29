@@ -1,21 +1,18 @@
 import React from "react";
 import { Content } from "../components/Content";
-import Header from "../components/Header";
 import imgHome from "../assets/images/christin-hume.jpg";
 import cabelereira from "../assets/images/cabelereira.png";
 import corteCrianca from "../assets/images/corteCrianca.png";
 import cabelereiros from "../assets/images/cabelereiros.png";
 import barbeiro from "../assets/images/barbeiro.png";
 import { SubTitle, Title, TitleBox } from "../components/Title";
-import { color } from "../assets/colors";
-import { Button } from "../components/inputs/Buttons";
 import { ModalPrimary } from "./Home";
 import Footer from "../components/Footer";
+import LoginRegistrationProfissional from "../components/form/LoginRegistrationProfissional";
 
 export default function ParaEmpresa() {
   return (
     <>
-
       <Content
         className="img-fluid"
         headerTransMarginAuto={true}
@@ -148,16 +145,9 @@ export default function ParaEmpresa() {
           </SubTitle>
           <br></br>
           <SubTitle>A evolução do seu négocio está á alguns cliques!</SubTitle>
-          <Button
-            style={{
-              backgroundColor: `${color.brownLight}`,
-              width: "40%",
-              marginTop: "1em",
-            }}
-            className="fw-semibold"
-          >
-            Junte-se a nós
-          </Button>
+          <div className="d-flex justify-content-start mt-4">
+            <LoginRegistrationProfissional buttonText="JUNTE-SE A NÓS" />
+          </div>
         </TitleBox>
       </Content>
       <Footer />

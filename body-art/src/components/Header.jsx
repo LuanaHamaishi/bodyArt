@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import imgLogo from "../assets/icons/logoW.svg";
+import LoginRegistrationProfissional from "./form/LoginRegistrationProfissional";
 import { Button } from "./inputs/Buttons";
 
 export default function Header({
@@ -10,18 +11,35 @@ export default function Header({
   backgroundColor,
   logoDark,
   homeEnabled,
+  company,
 }) {
   const HomeEnabled = () => {
-    
     return (
       <>
         {homeEnabled ? (
           <>
-          <Link to={'/empresa'} style={{textDecoration:'none'}}>
-            <Button themeButton="primary" className="fw-semibold">
-              PARA EMPRESAS
+            <Link to={"/empresa"} style={{ textDecoration: "none" }}>
+              <Button themeButton="primary" className="fw-semibold">
+                PARA EMPRESAS
+              </Button>
+            </Link>
+            <Button themeButton="transparent" className="fw-semibold">
+              SOBRE
             </Button>
-          </Link>
+          </>
+        ) : null}
+      </>
+    );
+  };
+  const Company = () => {
+    return (
+      <>
+        {company ? (
+          <>
+            <LoginRegistrationProfissional
+              buttonText="REGISTRAR"
+              className="fw-semibold"
+            />
             <Button themeButton="transparent" className="fw-semibold">
               SOBRE
             </Button>
@@ -36,6 +54,7 @@ export default function Header({
       return (
         <HeaderOption>
           <HomeEnabled />
+          <Company />
         </HeaderOption>
       );
     }
@@ -52,7 +71,7 @@ export default function Header({
     if (role === "profissional") {
       return (
         <HeaderOption>
-          <HomeEnabled />
+          <Company />
           {/* SIDE BAR DO PROFISSIONAL */}
         </HeaderOption>
       );

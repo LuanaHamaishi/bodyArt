@@ -18,6 +18,7 @@ const PageRoute = ({
   backgroundColor,
   logoDark,
   homeEnabled,
+  company,
 }) => {
   return (
     <>
@@ -27,6 +28,7 @@ const PageRoute = ({
         backgroundColor={backgroundColor}
         logoDark={logoDark}
         homeEnabled={homeEnabled}
+        company={company}
       />
       {page}
     </>
@@ -41,7 +43,12 @@ export default function Rotas() {
           path="/"
           element={<PageRoute page={<Home />} headerTransparent homeEnabled />}
         />
-        <Route path="/empresa" headerTransparent homeEnabled element={<PageRoute page={<ParaEmpresa />} />} />
+        <Route
+          path="/empresa"
+          element={
+            <PageRoute page={<ParaEmpresa />} headerTransparent company />
+          }
+        />
         <Route
           path="/inicio-cliente"
           element={
