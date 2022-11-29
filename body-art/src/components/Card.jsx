@@ -12,6 +12,7 @@ export const Card = ({
   icon,
   hours,
   price,
+  status,
   width,
   noShadow,
 }) => {
@@ -78,7 +79,7 @@ export const Card = ({
       ? "space-between"
       : "space-evenly"} */ space-evenly;
     align-items: center;
-    gap: 1.3rem;
+    gap: 1.1rem;
     flex-wrap: wrap;
   `;
 
@@ -96,6 +97,7 @@ export const Card = ({
   `;
 
   const StyledPrice = styled.div`
+    width: 45px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -104,6 +106,7 @@ export const Card = ({
   `;
 
   const StyledHours = styled.div`
+    width: 65px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -115,7 +118,7 @@ export const Card = ({
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1.2rem;
+    gap: 1rem;
   `;
 
   const StyledContainer = styled.div`
@@ -188,10 +191,18 @@ export const Card = ({
           </StyledContainerDescription>
         </StyledContainerPhotoDescription>
         <StyledContainerOthers>
+          {status ? (
+            <StyledHours>
+              <Label>Status</Label>
+              <Label fontWeight="400" fontSize="0.6rem">
+                {status}
+              </Label>
+            </StyledHours>
+          ) : null}
           {price ? (
             <StyledPrice>
               {titlePrice ? <Label>Preço</Label> : null}
-              <Label fontWeight="400" fontSize="1rem">
+              <Label fontWeight="400" fontSize="0.9rem">
                 {price}
               </Label>
             </StyledPrice>
@@ -199,7 +210,7 @@ export const Card = ({
           {hours ? (
             <StyledHours>
               <Label>Horário</Label>
-              <Label fontWeight="400" fontSize="1rem">
+              <Label fontWeight="400" fontSize="0.9rem">
                 {hours}
               </Label>
             </StyledHours>

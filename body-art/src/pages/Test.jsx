@@ -5,7 +5,7 @@ import PopUpRx from "../components/PopUpRx";
 // import InputLabelRx from "../components/descontinuado/InputLabelRx";
 // import DescriptionRx from "../components/inputs/Description";
 // import TitleRx from "../components/inputs/Title";
-import FileUploadPage from "../components/ImportTeste";
+import FileUploadPage from "../components/import/ImportTeste";
 // import TabsDemo from "../components/LabelComponenciarAinda";
 // import { Tabs, TabsList, TabsTrigger, TabsContent } from "../components/TabsRx";
 // import App from "../components/Calendar";
@@ -81,7 +81,8 @@ export default function ParaEmpresa() {
         <div
           style={{ border: "solid 1px red", margin: "20px", padding: "10px" }}
         >
-          <FileUploadPage></FileUploadPage>
+          {/* <FileUploadPage imagem="https://i.imgur.com/nQSV7wq.jpg" accept="image/*"></FileUploadPage> */}
+          <FileUploadPage/>
         </div>
 
         <div

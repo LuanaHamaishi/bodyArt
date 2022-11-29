@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import imgLogo from "../assets/icons/logoW.svg";
@@ -13,6 +13,8 @@ export default function Header({
   homeEnabled,
   company,
 }) {
+  const [pageDisabled, setPageDisabled] = useState("");
+
   const HomeEnabled = () => {
     return (
       <>
@@ -38,6 +40,7 @@ export default function Header({
           <>
             <LoginRegistrationProfissional
               buttonText="REGISTRAR"
+              themeButton="primary"
               className="fw-semibold"
             />
             <Button themeButton="transparent" className="fw-semibold">
@@ -53,6 +56,9 @@ export default function Header({
     if (!role) {
       return (
         <HeaderOption>
+          {/* <Button themeButton="transparent" className="fw-semibold">
+            SOBRE
+          </Button> */}
           <HomeEnabled />
           <Company />
         </HeaderOption>
@@ -62,6 +68,31 @@ export default function Header({
     if (role === "cliente") {
       return (
         <HeaderOption>
+          <Link to="/agendamentos-cliente">
+            <Button
+              themeButton="headeButton"
+              className="fw-semibold"
+              onClick={() => {
+                setPageDisabled("agendamentos-cliente");
+              }}
+              disabled={pageDisabled === "agendamentos-cliente"}
+            >
+              AGENDAMENTOS
+            </Button>
+          </Link>
+
+          <Link to="/inicio-cliente">
+            <Button
+              themeButton="headeButton"
+              className="fw-semibold"
+              onClick={() => {
+                setPageDisabled("inicio-cliente");
+              }}
+              disabled={pageDisabled === "inicio-cliente"}
+            >
+              AGENDAR
+            </Button>
+          </Link>
           <HomeEnabled />
           {/* SIDE BAR DO CLIENTE */}
         </HeaderOption>
@@ -71,6 +102,30 @@ export default function Header({
     if (role === "profissional") {
       return (
         <HeaderOption>
+          <Link to="/dashboard">
+            <Button
+              themeButton="headeButton"
+              className="fw-semibold"
+              onClick={() => {
+                setPageDisabled("dashboard");
+              }}
+              disabled={pageDisabled === "dashboard"}
+            >
+              DASHBOARD
+            </Button>
+          </Link>
+          <Link to="/agendamentos">
+            <Button
+              themeButton="headeButton"
+              className="fw-semibold"
+              onClick={() => {
+                setPageDisabled("agendamentos");
+              }}
+              disabled={pageDisabled === "agendamentos"}
+            >
+              AGENDAMENTOS
+            </Button>
+          </Link>
           <Company />
           {/* SIDE BAR DO PROFISSIONAL */}
         </HeaderOption>

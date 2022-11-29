@@ -5,6 +5,10 @@ import "keen-slider/keen-slider.min.css";
 import img1 from "../../assets/images/delfina-pan.png";
 import img2 from "../../assets/images/joshua-rawson.png";
 import img3 from "../../assets/images/tim-mossholder.png";
+import img4 from "../../assets/images/chris-knight.png";
+import img5 from "../../assets/images/adam-winger.png";
+import img6 from "../../assets/images/hair-spies.png";
+import img7 from "../../assets/images/allef-vinicius-IvQeAVeJULw-unsplash.jpg";
 
 export default function Corousel() {
   const [sliderRef] = useKeenSlider({
@@ -18,12 +22,13 @@ export default function Corousel() {
 
   return (
     <ContainerCorousel ref={sliderRef}>
+      <ContentCorousel imgUrl={img5} description={"Guarulhos cortes"} />
+      <ContentCorousel imgUrl={img4} description={"Cabeleireiros da Leste"} />
       <ContentCorousel imgUrl={img1} description={"Roberto Barba e Corte"} />
       <ContentCorousel imgUrl={img2} description={"Layla Cabellos"} />
       <ContentCorousel imgUrl={img3} description={"Edvaldo Cabelereiro"} />
-      <ContentCorousel imgUrl={img1} />
-      <ContentCorousel imgUrl={img2} />
-      <ContentCorousel imgUrl={img3} />
+      <ContentCorousel imgUrl={img6} description={"Paulista cortes"} />
+      <ContentCorousel imgUrl={img7} description={"Tatuapé tesouras"} />
     </ContainerCorousel>
   );
 }

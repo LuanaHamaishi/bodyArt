@@ -19,6 +19,7 @@ export default function ProfessionalSelect() {
         // axios
         //   .get("https://63795bc67419b414df8dedcf.mockapi.io/api/profissionais")
         .then((res) => {
+          console.log(res);
           setProfissionais(res.data);
         })
         .catch((erro) => {

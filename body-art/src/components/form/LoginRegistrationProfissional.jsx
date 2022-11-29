@@ -21,6 +21,7 @@ import { useEffect } from "react";
 export default function LoginRegistrationProfissional({
   buttonText,
   themeButton,
+  className,
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -131,9 +132,12 @@ export default function LoginRegistrationProfissional({
       api
         .post(`/profissionais`, data)
         .then((res) => {
-          setUserProfile(setProfile(res.data));
+          // setUserProfile(setProfile(res.data));
           toast.success("Cadastro concluído!");
-          //   navigate("/inicio-cliente");
+          setIsOpen(false);
+          setTimeout(() => {
+            setIsOpen(true);
+          }, 100);
         })
         .catch((erro) => {
           toast.warning("Cadastro inválido!");
@@ -439,7 +443,7 @@ export default function LoginRegistrationProfissional({
         .then((res) => {
           setUserProfile(setProfile(res.data));
           toast.success("Login efetuado!");
-          //   navigate("/inicio-cliente");
+          navigate("/dashboard");
         })
         .catch((erro) => {
           console.log(erro);
@@ -504,6 +508,7 @@ export default function LoginRegistrationProfissional({
         <Button
           onClick={() => setIsOpen(true)}
           themeButton={themeButton ? themeButton : "primary"}
+          className={className}
         >
           {buttonText}
         </Button>

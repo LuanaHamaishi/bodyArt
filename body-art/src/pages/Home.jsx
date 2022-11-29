@@ -21,17 +21,6 @@ export const ModalPrimary = styled.div`
   font-size: 1.2rem;
 `;
 
-export const ModalSecondary = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  color: white;
-  font-size: 1.2rem;
-`;
-
 export default function Home() {
   return (
     <div>
@@ -53,9 +42,7 @@ export default function Home() {
         <Corousel />
       </Content>
 
-      <Content contentSmaller={true} disabledTop={true}>
-        {/* <ModalSecondary>
-        </ModalSecondary> */}
+      <Content contentSmaller={true} height="100%">
         <div
           style={{
             height: "fit-content",
@@ -69,7 +56,11 @@ export default function Home() {
               Reserve agora os procedimentos que você quer fazer com o
               profissional de sua escolha
             </SubTitle>
-            <LoginRegistration buttonText="AGENDAR AGORA" />
+            <LoginRegistration
+              buttonText="AGENDAR AGORA"
+              themeButton="primary"
+              className="fw-semibold"
+            />
           </TitleBox>
 
           <TitleBox style={titleBoxFormating}>
@@ -79,46 +70,52 @@ export default function Home() {
               administrar seu negócio com mais facilidade e praticidade. <br />
               Agendamentos, Mais relevância, Pagamentos, tudo em um só lugar
             </SubTitle>
-            <LoginRegistrationProfissional buttonText="EXPANDIR MEU NEGÓCIO" />
+            <LoginRegistrationProfissional
+              buttonText="EXPANDIR MEU NEGÓCIO"
+              themeButton="primary"
+              className="fw-semibold"
+            />
           </TitleBox>
         </div>
       </Content>
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          marginBottom: "50px",
-          justifyContent: "center",
-        }}
-      >
-        <TitleBox className="mt-5">
-          <Title>
-            Reserve com os melhores profissionais mais próximos de você.
-          </Title>
-          <SubTitle style={{ marginTop: "20px" }}>
-            Os melhores profissionais para cuidar da sua beleza estão aqui na
-            BodyArt
-          </SubTitle>
-          <br></br>
-          <SubTitle style={{ marginTop: "20px" }}>
-            Confira as postagens dos profissionais em seus respectivos
-            portifólios
-          </SubTitle>
-          <br></br>
-          <SubTitle style={{ marginTop: "20px" }}>
-            Escolha o profissional com que você mais se identificar
-          </SubTitle>
-          <br></br>
-        </TitleBox>
+      <Content contentSmaller={true} disabledTop={true} height="100%">
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            marginBottom: "50px",
+            justifyContent: "center",
+          }}
+        >
+          <TitleBox className="mt-5">
+            <Title>
+              Reserve com os melhores profissionais mais próximos de você.
+            </Title>
+            <SubTitle style={{ marginTop: "20px" }}>
+              Os melhores profissionais para cuidar da sua beleza estão aqui na
+              BodyArt
+            </SubTitle>
+            <br></br>
+            <SubTitle style={{ marginTop: "20px" }}>
+              Confira as postagens dos profissionais em seus respectivos
+              portifólios
+            </SubTitle>
+            <br></br>
+            <SubTitle style={{ marginTop: "20px" }}>
+              Escolha o profissional com que você mais se identificar
+            </SubTitle>
+            <br></br>
+          </TitleBox>
 
-        <img
-          src={calendario}
-          className="img-fluid"
-          alt="Pictograma Cabelereira"
-          style={{ height: "50vh" }}
-        />
-      </div>
+          <img
+            src={calendario}
+            className="img-fluid"
+            alt="Pictograma Cabelereira"
+            style={{ height: "50vh" }}
+          />
+        </div>
+      </Content>
 
       <Content contentSmaller={true} disabledTop={true}>
         <Title className="mb-5" style={{ textAlign: "center" }}>
@@ -141,13 +138,13 @@ const titleBoxFormating = {
 
 const titleFormating = {
   textAlign: "center",
-  padding: "20px 0px 100px",
+  padding: "5px 0px 50px",
 };
 
 const subTitleBoxFormating = {
   textAlign: "center",
   width: "95%",
   alignSelf: "center",
-  height: "250px",
-  paddingBottom: "50px",
+  height: "130px",
+  paddingBottom: "25px",
 };

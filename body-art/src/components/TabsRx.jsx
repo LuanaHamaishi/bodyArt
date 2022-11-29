@@ -55,8 +55,13 @@ export const TabsList = ({ gap, children }) => {
     gap: ${gap ? gap : null};
     flex-shrink: 0px;
     background-color: white;
-    border-bottom: 0.5px solid ${color.blackOpacityFifty};
+    border-bottom: 0.5px solid #00000010;
   `;
+  // ELE DEVOLVE UNDEFINED SE ESTIVER COM 1 CHILDREN
+  // const teste = () => {
+  //   console.log("children length: ", children.length);
+  // };
+  // teste();
   return <StyledTabsList>{children}</StyledTabsList>;
 };
 
@@ -68,9 +73,9 @@ export const TabsItem = ({ children, page }) => {
     display: flex;
     flex-shrink: 0px;
     padding: 10px 25px;
-    border-bottom: 2.5px solid ${color.bluePrimary};
+    border-bottom: 2px solid ${color.bluePrimary};
     color: ${color.bluePrimary};
-    margin-bottom: -1px;
+    /* margin-bottom: -1px; */
     user-select: none;
     font-weight: 500;
     font-size: 0.9rem;
@@ -82,8 +87,9 @@ export const TabsItem = ({ children, page }) => {
   );
 };
 
-export const TabsContent = ({ children, page }) => {
+export const TabsContent = ({ children, page, height }) => {
   const StyledTabsContent = styled.div`
+    height: ${height ? height : null};
     padding: 20px;
     background-color: white;
     border-bottom-left-radius: 6px;

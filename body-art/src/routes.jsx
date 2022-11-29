@@ -11,6 +11,9 @@ import Header from "./components/Header";
 import TesteNotification from "./pages/TesteNotification";
 import { color } from "./assets/colors";
 import ProfessionalSelect from "./pages/ProfessionalSelect";
+import Agendamentos from "./pages/gerenciarAgendamento/Agendamentos";
+import AgendamentosCliente from "./pages/gerenciarAgendamento/AgendamentosCliente";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 const PageRoute = ({
   page,
@@ -23,7 +26,7 @@ const PageRoute = ({
   return (
     <>
       <Header
-        role={sessionStorage.userRole}
+        role={sessionStorage.getItem("userRole")}
         headerTransparent={headerTransparent}
         backgroundColor={backgroundColor}
         logoDark={logoDark}
@@ -86,6 +89,36 @@ export default function Rotas() {
         />
         <Route path="/test" element={<PageRoute page={<Test />} />} />
         <Route path="/teste-notification" element={<TesteNotification />} />
+        <Route
+          path="/agendamentos"
+          element={
+            <PageRoute
+              page={<Agendamentos />}
+              backgroundColor={color.beigeDark}
+              logoDark
+            />
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <PageRoute
+              page={<Dashboard />}
+              backgroundColor={color.beigeDark}
+              logoDark
+            />
+          }
+        />
+        <Route
+          path="/agendamentos-cliente"
+          element={
+            <PageRoute
+              page={<AgendamentosCliente />}
+              backgroundColor={color.beigeDark}
+              logoDark
+            />
+          }
+        />
         <Route path="*" element={<PageRoute page={<NotFound />} />} />
       </Routes>
     </Router>

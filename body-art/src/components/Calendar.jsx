@@ -259,9 +259,16 @@ const CalendarComponent = ({ dataCalendar, dataSelected }) => {
     const renderCellAtual = () => {
       if (dataCalendar !== null) {
         try {
-          dataCalendar.forEach((element, indice) => {
-            let vetorData = element.dataHoraCheckin;
-            let dataBanco = `${vetorData[2]}-${vetorData[1]}-${vetorData[0]}`;
+          dataCalendar.forEach((e, i) => {
+            let ano = e.dataHoraCheckin[0];
+            let mes = e.dataHoraCheckin[1];
+            let dia = e.dataHoraCheckin[2];
+            let mesZeroAEsquerda = "";
+            if (mes !== 10 && mes !== 11 && mes !== 12) {
+              mesZeroAEsquerda = "0";
+            }
+
+            let dataBanco = `${dia}-${mesZeroAEsquerda}${mes}-${ano}`;
 
             if (dataAtualCelula === dataBanco) {
               qtdAgendaDataAtual++;

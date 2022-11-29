@@ -33,6 +33,8 @@ export default function ParaEmpresa() {
           justifyContent: "space-around",
           flexDirection: "row",
         }}
+        height="100%"
+        padding="48px 96px 24px 96px"
       >
         <TitleBox className="mt-5">
           <Title>Gerir o seu negócio ficou bem mais fácil,</Title>
@@ -59,6 +61,8 @@ export default function ParaEmpresa() {
       <Content
         contentSmaller={true}
         style={{ justifyContent: "space-around", flexDirection: "row" }}
+        height="100%"
+        padding="24px 96px"
       >
         <img
           src={corteCrianca}
@@ -97,6 +101,8 @@ export default function ParaEmpresa() {
           flexDirection: "row",
           height: "50vw !important",
         }}
+        height="100%"
+        padding="24px 96px"
       >
         <TitleBox className="mt-5">
           <Title>Já imaginou?</Title>
@@ -126,6 +132,8 @@ export default function ParaEmpresa() {
           flexDirection: "row",
           marginBottom: "0",
         }}
+        height="100%"
+        padding="24px 96px 48px 96px"
       >
         <img
           src={barbeiro}
@@ -146,7 +154,11 @@ export default function ParaEmpresa() {
           <br></br>
           <SubTitle>A evolução do seu négocio está á alguns cliques!</SubTitle>
           <div className="d-flex justify-content-start mt-4">
-            <LoginRegistrationProfissional buttonText="JUNTE-SE A NÓS" />
+            <LoginRegistrationProfissional
+              buttonText="JUNTE-SE A NÓS"
+              themeButton="primary"
+              className="fw-semibold"
+            />
           </div>
         </TitleBox>
       </Content>

@@ -71,4 +71,26 @@ export const themes = {
     activeBg: color.transparent,
     activeColor: color.beigeDark,
   },
+  transparentColorBlue: {
+    name: "transparent",
+    enabledBg: color.transparent,
+    enabledColor: color.bluePrimary,
+    disabledBg: color.transparent,
+    disabledColor: color.bluePrimary,
+    hoverBg: color.transparent,
+    hoverColor: color.blueSecondary,
+    activeBg: color.transparent,
+    activeColor: color.bluePrimary,
+  },
+  headeButton: {
+    name: "transparent",
+    enabledBg: color.transparent, // NÃO MEXER
+    enabledColor: color.darkBlue,
+    disabledBg: color.transparent, // NÃO MEXER
+    disabledColor: color.darkBlue,
+    hoverBg: color.transparent, // NÃO MEXER
+    hoverColor: color.beigeEmphasis,
+    activeBg: color.transparent, // NÃO MEXER
+    activeColor: color.bluePrimary,
+  },
 };

@@ -10,10 +10,15 @@ export const Content = ({
   disabledLeft,
   disabledRight,
   imgUrl,
+  height,
   ...props
 }) => {
   const StyledContent = styled.div`
-    height: ${headerTransDisabled || contentSmaller ? "87.8vh" : "100vh"};
+    height: ${height
+      ? height
+      : headerTransDisabled || contentSmaller
+      ? "87.8vh"
+      : "100vh"};
     width: 100%;
     display: flex;
     flex-direction: column;

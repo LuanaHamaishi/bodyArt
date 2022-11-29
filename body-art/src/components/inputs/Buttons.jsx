@@ -13,6 +13,9 @@ export const Button = styled.button.attrs({ className: "btn" })`
       themes[themeButton ? themeButton : "DEFAULT"].disabledBg};
     color: ${({ themeButton }) =>
       themes[themeButton ? themeButton : "DEFAULT"].disabledColor};
+    border-color: ${({ themeButton }) =>
+      themes[themeButton ? themeButton : "DEFAULT"].disabledBg} !important;
+    user-select: none;
   }
   :hover {
     background-color: ${({ themeButton }) =>

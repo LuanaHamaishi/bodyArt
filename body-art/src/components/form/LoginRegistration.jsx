@@ -15,7 +15,11 @@ import { maskCpf } from "./maskRegex";
 import { Tabs, TabsContent, TabsItem, TabsList } from "../TabsRx";
 import { toast } from "react-toastify";
 
-export default function LoginRegistration({ buttonText, themeButton }) {
+export default function LoginRegistration({
+  buttonText,
+  themeButton,
+  className,
+}) {
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -66,9 +70,12 @@ export default function LoginRegistration({ buttonText, themeButton }) {
       api
         .post(`/clientes`, data)
         .then((res) => {
-          setUserProfile(setProfile(res.data));
+          // setUserProfile(setProfile(res.data));
           toast.success("Cadastro concluído!");
-          navigate("/inicio-cliente");
+          setIsOpen(false);
+          setTimeout(() => {
+            setIsOpen(true);
+          }, 100);
         })
         .catch((erro) => {
           toast.warning("Cadastro inválido!");
@@ -326,6 +333,7 @@ export default function LoginRegistration({ buttonText, themeButton }) {
         <Button
           onClick={() => setIsOpen(true)}
           themeButton={themeButton ? themeButton : "primary"}
+          className={className}
         >
           {buttonText}
         </Button>

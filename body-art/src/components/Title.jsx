@@ -17,5 +17,4 @@ export const SubTitle = styled.span`
   font-size: 1.25em;
   font-weight: 400;
   line-height: 1.5rem; 
-
 `;
