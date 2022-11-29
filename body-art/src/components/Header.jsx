@@ -12,13 +12,16 @@ export default function Header({
   homeEnabled,
 }) {
   const HomeEnabled = () => {
+    
     return (
       <>
         {homeEnabled ? (
           <>
+          <Link to={'/empresa'} style={{textDecoration:'none'}}>
             <Button themeButton="primary" className="fw-semibold">
               PARA EMPRESAS
             </Button>
+          </Link>
             <Button themeButton="transparent" className="fw-semibold">
               SOBRE
             </Button>

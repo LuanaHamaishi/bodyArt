@@ -41,7 +41,7 @@ export default function Rotas() {
           path="/"
           element={<PageRoute page={<Home />} headerTransparent homeEnabled />}
         />
-        <Route path="/empresa" element={<PageRoute page={<ParaEmpresa />} />} />
+        <Route path="/empresa" headerTransparent homeEnabled element={<PageRoute page={<ParaEmpresa />} />} />
         <Route
           path="/inicio-cliente"
           element={

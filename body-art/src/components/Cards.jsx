@@ -21,36 +21,10 @@ export default function Cards({ cardTitle, cardDescription, btnCard, imagem }) {
   );
 }
 
-export function CardServices({ services }) {
-  /*  const getServices = () => {
-   
-  }; */
 
-  /*  function handleService({ services }) {
-    console.log(res);
-  } */
-  return (
-    <CardService>
-      <Title>Serviços:</Title>
-      {/*   {services.map((s) => (
-        <CardServiceContainer>
-          <TitleBox>
-            <Title>{s.procedimento}</Title>
-            <SubTitle>Duração serviço {s.duracao}</SubTitle>
-          </TitleBox>
-          <div className="d-flex w-25 justify-content-evenly align-items-center">
-            <Title>R${s.preco}</Title>
-
-            <PlusCircledIcon height={20} width={20} color={color.darkBlue} />
-          </div>
-        </CardServiceContainer>
-      ))} */}
-    </CardService>
-  );
-}
 
 const Card = styled.div`
-  height: 370px;
+  height: 400px;
   width: 18rem;
   object-fit: cover;
   margin-right: 2rem;
@@ -63,29 +37,4 @@ const CardBody = styled.div`
   justify-content: space-around;
 `;
 
-const CardService = styled.div`
-  /* height: 500px; */
-  max-height: 400px;
-  max-width: 500px;
-  border: solid 2px #678c99;
-  border-radius: 5px;
-  overflow-y: scroll;
-  display: flex;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-`;
 
-/* const CardServiceContainer = styled.div`
-  height: 75px;
-  width: 100%;
-  border: solid 2px #678c99;
-  border-radius: 5px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  margin-bottom: 10px;
-`;
- */

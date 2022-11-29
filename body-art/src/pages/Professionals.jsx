@@ -9,6 +9,11 @@ import { Content } from "../components/Content";
 import { PlusCircledIcon, TrashIcon } from "@radix-ui/react-icons";
 import { toast } from "react-toastify";
 import api from "../api";
+import PopUp from "../components/PopUpRx";
+import { Button } from "../components/inputs/Buttons";
+import { useForm } from "react-hook-form";
+import InputLabel, { Label } from "../components/inputs/InputLabel";
+import { Input } from "../components/inputs/Inputs";
 
 export default function Professionals() {
   const params = useParams("/profissional/:id/:nome");
@@ -16,6 +21,8 @@ export default function Professionals() {
   const [profissionais, setProfissionais] = useState([]);
   const [services, setServices] = useState([]);
   const [addServices, setAddServices] = useState([]);
+  const [errorsMessage, setErrorsMessage] = useState({});
+  const { register, handleSubmit, setValue, getValues, reset } = useForm();
 
   useEffect(() => {
     if (services.length === 0) {
@@ -35,7 +42,6 @@ export default function Professionals() {
   });
 
   function addService(id) {
-    console.log(id);
     let service = services.filter((s) => s.id === id);
     setAddServices([...addServices, service[0]]);
     setServices(services.filter((s) => s.id !== id));
@@ -58,9 +64,62 @@ export default function Professionals() {
   }
 
   function toSchedule() {
-    if (addServices.length === 0) {
-      toast.warning("Você não tem nenhum serviço adicionado!");
-    }
+    const onSubmit = (data) => {
+      addServices.map((e) => {
+        let dataApi = {
+          dataHoraCheckin: `${data.dia}T${data.hora}:32.040Z`,
+          dataHoraCheckout: "3000-01-01T00:00:00.040Z",
+          status: "A",
+          cliente: {
+            id: sessionStorage.getItem("id"),
+          },
+          itemProcedimento: {
+            id: e.id,
+          },
+        };
+        api
+          .post(`/agendamentos/${sessionStorage.getItem("id")}`, dataApi)
+          .then((res) => {
+            toast.success(`${e.nomeItemProcedimento} agendado com sucesso!`);
+            clear();
+            reset();
+          })
+          .catch((erro) => {
+            toast.warning("Erro ao agendar");
+            console.log(erro);
+          });
+        console.log(dataApi);
+      });
+    };
+
+    return (
+      <PopUp
+        dropClose
+        trigger={
+          <StyledButton
+            className="mx-5"
+            disabled={addServices.length === 0 ? true : false}
+          >
+            Agendar
+          </StyledButton>
+        }
+      >
+        <StyledForm id="form-schedule" onSubmit={handleSubmit(onSubmit)}>
+          <InputLabel
+            label="Data do serviço"
+            input={<Input name="dia" type="date" {...register("dia")} />}
+          />
+          <InputLabel
+            label="Horário do serviço"
+            input={<Input name="hora" type="time" {...register("hora")} />}
+          />
+          <Label color="red">{errorsMessage?.dataHoraCheckin}</Label>
+          <div>
+            <Button type="submit">Agendar</Button>
+          </div>
+        </StyledForm>
+      </PopUp>
+    );
   }
 
   function renderDuracaoServico(duracao) {
@@ -87,53 +146,57 @@ export default function Professionals() {
           <ContainerCards>
             <Title>Serviços</Title>
             <Cards>
-              {services.map((s, i) => {
-                return (
-                  <Card
-                    title={s.nomeItemProcedimento}
-                    description={renderDuracaoServico(
-                      s.duracaoItemProcedimento
-                    )}
-                    price={"R$" + s.valorItemProcedimento}
-                    key={s.id}
-                    children={
-                      <PlusCircledIcon
-                        height={20}
-                        width={20}
-                        color={color.darkBlue}
-                        style={{ cursor: "pointer" }}
-                        onClick={() => addService(s.id)}
-                      />
-                    }
-                  />
-                );
-              })}
+              {services
+                .map((s, i) => {
+                  return (
+                    <Card
+                      title={s.nomeItemProcedimento}
+                      description={renderDuracaoServico(
+                        s.duracaoItemProcedimento
+                      )}
+                      price={"R$" + s.valorItemProcedimento}
+                      key={s.id}
+                      children={
+                        <PlusCircledIcon
+                          height={20}
+                          width={20}
+                          color={color.darkBlue}
+                          style={{ cursor: "pointer" }}
+                          onClick={() => addService(s.id)}
+                        />
+                      }
+                    />
+                  );
+                })
+                .reverse()}
             </Cards>
           </ContainerCards>
           <ContainerCards>
             <Title>Serviços adicionados</Title>
             <Cards>
-              {addServices.map((as) => {
-                return (
-                  <Card
-                    title={as.nomeItemProcedimento}
-                    description={renderDuracaoServico(
-                      as.duracaoItemProcedimento
-                    )}
-                    price={"R$" + as.valorItemProcedimento}
-                    key={as.id}
-                    children={
-                      <TrashIcon
-                        height={20}
-                        width={20}
-                        color={color.darkBlue}
-                        style={{ cursor: "pointer" }}
-                        onClick={() => removeService(as.id)}
-                      />
-                    }
-                  />
-                );
-              })}
+              {addServices
+                .map((as) => {
+                  return (
+                    <Card
+                      title={as.nomeItemProcedimento}
+                      description={renderDuracaoServico(
+                        as.duracaoItemProcedimento
+                      )}
+                      price={"R$" + as.valorItemProcedimento}
+                      key={as.id}
+                      children={
+                        <TrashIcon
+                          height={20}
+                          width={20}
+                          color={color.darkBlue}
+                          style={{ cursor: "pointer" }}
+                          onClick={() => removeService(as.id)}
+                        />
+                      }
+                    />
+                  );
+                })
+                .reverse()}
             </Cards>
             <Card
               maxChildren
@@ -142,12 +205,14 @@ export default function Professionals() {
                   style={{ width: "100%" }}
                   className="d-flex justify-content-between"
                 >
-                  <StyledButton className="mx-5" onClick={() => clear()}>
+                  <StyledButton
+                    className="mx-5"
+                    onClick={() => clear()}
+                    disabled={addServices.length === 0 ? true : false}
+                  >
                     Limpar
                   </StyledButton>
-                  <StyledButton className="mx-5" onClick={() => toSchedule()}>
-                    Agendar
-                  </StyledButton>
+                  {toSchedule()}
                 </div>
               }
             />
@@ -221,4 +286,17 @@ const StyledButton = styled.button`
     background-color: ${color.beigeEmphasis};
     color: ${color.bluePrimary};
   }
+
+  :disabled {
+    background-color: ${color.blue};
+    color: #ababab;
+  }
+`;
+const StyledForm = styled.form`
+  padding: 2rem;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
